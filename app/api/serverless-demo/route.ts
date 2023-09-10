@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import cheerio, { CheerioAPI } from 'cheerio';
 import axios from 'axios';
 import type { NextRequest } from 'next/server';
+import { getClient } from "@/lib/client";
+import { gql } from "@apollo/client";
 
 type Content = string | string[] | undefined;
 
@@ -14,6 +16,18 @@ const FIELDS = [
   'Publisher', 'Variant', 'Grade', 'Page Quality', 'Grade Date',
   'Grade Category', 'Art Comments', 'Key Comments', 'Grader Notes', 'Signatures'
 ];
+
+const client = getClient();
+
+const GET_ALL_SLABS = gql`
+  query GetAllSlabs {
+    slabs {
+      id
+      title
+    }
+  }
+`;
+
 
 const fieldToKey = (field: string): string => field.toLowerCase().replace(/ /g, '_');
 
@@ -42,6 +56,19 @@ const scrapeSlabDataFrom = (pageContent: CheerioAPI): CGCData => {
   return { certification_number: cgc_cert, ...rest };
 };
 
+const addToDatabase = async (slabData: CGCData): Promise<void> => {
+  const client = getClient();
+
+
+
+  try {
+    console.log('Added to database')
+  } catch (err) {
+    console.error('Failed to add to database', err);
+  }
+};
+
+
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const certNumber = "2815581007";
   const pageContent = await fetchCgcPageContentFor(certNumber);
@@ -51,6 +78,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   const slabData = scrapeSlabDataFrom(pageContent);
+  const dbResult = await addToDatabase(slabData);
 
   return NextResponse.json(
     {
