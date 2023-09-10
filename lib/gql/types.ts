@@ -61,6 +61,8 @@ export enum Slabs_Select_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  Grade = 'grade',
+  /** column name */
   GradeCategory = 'grade_category',
   /** column name */
   GradeDate = 'grade_date',
@@ -102,6 +104,7 @@ export type Slabs_Order_By = {
   asking_price?: InputMaybe<Order_By>;
   certification_number?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
+  grade?: InputMaybe<Order_By>;
   grade_category?: InputMaybe<Order_By>;
   grade_date?: InputMaybe<Order_By>;
   grader_notes?: InputMaybe<Order_By>;
@@ -146,6 +149,7 @@ export type Slabs_Bool_Exp = {
   asking_price?: InputMaybe<Int_Comparison_Exp>;
   certification_number?: InputMaybe<String_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  grade?: InputMaybe<String_Comparison_Exp>;
   grade_category?: InputMaybe<String_Comparison_Exp>;
   grade_date?: InputMaybe<String_Comparison_Exp>;
   grader_notes?: InputMaybe<String_Comparison_Exp>;
@@ -257,6 +261,7 @@ export type Slabs = {
   asking_price?: Maybe<Scalars['Int']['output']>;
   certification_number: Scalars['String']['output'];
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  grade: Scalars['String']['output'];
   grade_category: Scalars['String']['output'];
   grade_date: Scalars['String']['output'];
   grader_notes?: Maybe<Scalars['String']['output']>;
@@ -320,6 +325,7 @@ export type Slabs_Max_Fields = {
   asking_price?: Maybe<Scalars['Int']['output']>;
   certification_number?: Maybe<Scalars['String']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  grade?: Maybe<Scalars['String']['output']>;
   grade_category?: Maybe<Scalars['String']['output']>;
   grade_date?: Maybe<Scalars['String']['output']>;
   grader_notes?: Maybe<Scalars['String']['output']>;
@@ -346,6 +352,7 @@ export type Slabs_Min_Fields = {
   asking_price?: Maybe<Scalars['Int']['output']>;
   certification_number?: Maybe<Scalars['String']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
+  grade?: Maybe<Scalars['String']['output']>;
   grade_category?: Maybe<Scalars['String']['output']>;
   grade_date?: Maybe<Scalars['String']['output']>;
   grader_notes?: Maybe<Scalars['String']['output']>;
@@ -496,6 +503,7 @@ export type Slabs_Insert_Input = {
   asking_price?: InputMaybe<Scalars['Int']['input']>;
   certification_number?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  grade?: InputMaybe<Scalars['String']['input']>;
   grade_category?: InputMaybe<Scalars['String']['input']>;
   grade_date?: InputMaybe<Scalars['String']['input']>;
   grader_notes?: InputMaybe<Scalars['String']['input']>;
@@ -540,6 +548,8 @@ export enum Slabs_Update_Column {
   CertificationNumber = 'certification_number',
   /** column name */
   CreatedAt = 'created_at',
+  /** column name */
+  Grade = 'grade',
   /** column name */
   GradeCategory = 'grade_category',
   /** column name */
@@ -588,6 +598,7 @@ export type Slabs_Set_Input = {
   asking_price?: InputMaybe<Scalars['Int']['input']>;
   certification_number?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  grade?: InputMaybe<Scalars['String']['input']>;
   grade_category?: InputMaybe<Scalars['String']['input']>;
   grade_date?: InputMaybe<Scalars['String']['input']>;
   grader_notes?: InputMaybe<Scalars['String']['input']>;
@@ -677,6 +688,7 @@ export type Slabs_Stream_Cursor_Value_Input = {
   asking_price?: InputMaybe<Scalars['Int']['input']>;
   certification_number?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  grade?: InputMaybe<Scalars['String']['input']>;
   grade_category?: InputMaybe<Scalars['String']['input']>;
   grade_date?: InputMaybe<Scalars['String']['input']>;
   grader_notes?: InputMaybe<Scalars['String']['input']>;
@@ -704,7 +716,9 @@ export enum Cursor_Ordering {
   Desc = 'DESC'
 }
 
-export type GetAllSlabsQueryVariables = Exact<{ [key: string]: never; }>;
+export type AddToDatabaseMutationVariables = Exact<{
+  slabData: Slabs_Insert_Input;
+}>;
 
 
-export type GetAllSlabsQuery = { __typename?: 'query_root', slabs: Array<{ __typename?: 'slabs', id: any, title: string }> };
+export type AddToDatabaseMutation = { __typename?: 'mutation_root', insert_slabs_one?: { __typename?: 'slabs', id: any } | null };

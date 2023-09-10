@@ -14,6 +14,7 @@
     "@apollo/experimental-nextjs-app-support": "^0.4.2",
     "@graphql-codegen/client-preset": "^4.1.0",
     "@prisma/client": "^5.2.0",
+    "@tanstack/react-table": "^8.9.8",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",

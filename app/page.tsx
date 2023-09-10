@@ -1,5 +1,41 @@
 "use client"
+import Table from '@/components/Table';
 import React, { useCallback, useState } from 'react';
+
+const testData = [
+  {
+    certification_number: "2815581007",
+    title: "Bone",
+    issue: "1",
+    issue_date: "1/96",
+    issue_year: "1996",
+    publisher: "Image Comics",
+    grade: "9.6",
+    page_quality: "WHITE",
+    grade_date: "06/29/2023",
+    grade_category: "Signature",
+    art_comments: "Jeff Smith cover",
+    key_comments: "Reprints Bone #1 from Cartoon Books.",
+    grader_notes: "indent center of front cover",
+    signatures: "SIGNED & SKETCH BY JEFF SMITH ON 6/16/23"
+  },
+  {
+    certification_number: "2815581007",
+    title: "Bone",
+    issue: "1",
+    issue_date: "1/96",
+    issue_year: "1996",
+    publisher: "Image Comics",
+    grade: "9.6",
+    page_quality: "WHITE",
+    grade_date: "06/29/2023",
+    grade_category: "Signature",
+    art_comments: "Jeff Smith cover",
+    key_comments: "Reprints Bone #1 from Cartoon Books.",
+    grader_notes: "indent center of front cover",
+    signatures: "SIGNED & SKETCH BY JEFF SMITH ON 6/16/23"
+  }
+]
 
 export default function Home() {
   const [certNumber, setCertNumber] = useState('2815581007');
@@ -33,7 +69,9 @@ export default function Home() {
         </label>
         <button type="submit">Submit</button>
       </form>
+      <Table data={testData} />
       <pre>{JSON.stringify(data, null, 2)}</pre>
+
     </main>
   );
 }

@@ -19,15 +19,13 @@ const FIELDS = [
 
 const client = getClient();
 
-const GET_ALL_SLABS = gql`
-  query GetAllSlabs {
-    slabs {
+const ADD_TO_DATABASE = gql`
+  mutation AddToDatabase($slabData: slabs_insert_input!) {
+    insert_slabs_one(object: $slabData) {
       id
-      title
     }
   }
 `;
-
 
 const fieldToKey = (field: string): string => field.toLowerCase().replace(/ /g, '_');
 
@@ -57,12 +55,15 @@ const scrapeSlabDataFrom = (pageContent: CheerioAPI): CGCData => {
 };
 
 const addToDatabase = async (slabData: CGCData): Promise<void> => {
-  const client = getClient();
-
-
-
+  console.log("slabData in addToDatabase", slabData)
   try {
-    console.log('Added to database')
+    const result = await client.mutate({
+      mutation: ADD_TO_DATABASE,
+      variables: {
+        slabData,
+      },
+    });
+    console.log('Added to database', result, result?.data)
   } catch (err) {
     console.error('Failed to add to database', err);
   }
@@ -78,7 +79,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   const slabData = scrapeSlabDataFrom(pageContent);
+  console.log('slabData', slabData)
   const dbResult = await addToDatabase(slabData);
+  console.log('dbResult', dbResult)
 
   return NextResponse.json(
     {
