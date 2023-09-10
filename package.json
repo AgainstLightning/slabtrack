@@ -6,22 +6,34 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "download-schema": "gq https://in-trout-49.hasura.app/v1/graphql -H \"X-Hasura-Admin-Secret: qb9d5XFFXTpJb36Zk0EDoiRHHbWMqgL9sUVZ6CN0jTYtqeVvJwToSIa1wMkik0fo\" --introspect --format json > schema.json"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.0-rc.2",
+    "@apollo/experimental-nextjs-app-support": "^0.4.2",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@prisma/client": "^5.2.0",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
+    "@vercel/postgres": "^0.4.1",
+    "apollo": "^2.34.0",
     "autoprefixer": "10.4.15",
     "axios": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
+    "graphql": "^14.7.0",
     "next": "13.4.19",
     "postcss": "8.4.28",
+    "prisma": "^5.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
+    "tailwindcss": "3.3.3"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "typescript": "^5.2.2"
   }
 }

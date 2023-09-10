@@ -1,16 +1,25 @@
 "use client"
-import { useCallback, useState } from 'react';
-import { useCgcData } from './useCgcData';
+import React, { useCallback, useState } from 'react';
 
 export default function Home() {
-  const [certNumber, setCertNumber] = useState('4287278003');
-  const { data, isLoading } = useCgcData(certNumber);
+  const [certNumber, setCertNumber] = useState('2815581007');
+  const [data, setData] = useState({});
 
-  const handleSubmit = async (e) => {
+
+  const handleSubmit: React.FormEventHandler = async (e) => {
     e.preventDefault();
-  }
+    const res = await fetch(`http://localhost:3000/api/serverless-demo?certNumber=${certNumber}`);
+    if (res.ok) {
+      const data = await res.json();
+      console.log("data body", data.body);
+      setData(data.body);
+    } else {
+      console.log("HTTP-Error: " + res.status);
+    }
+  };
 
-  const handleCertNumberChange = useCallback((e) => {
+
+  const handleCertNumberChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setCertNumber(e.target.value);
   }, []);
 
@@ -24,7 +33,7 @@ export default function Home() {
         </label>
         <button type="submit">Submit</button>
       </form>
-      <pre>{isLoading ? "loading" : JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </main>
   );
 }
