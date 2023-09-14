@@ -1,6 +1,39 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import { getClient } from "@/lib/client";
 import { Inter } from 'next/font/google'
+import { gql } from '@apollo/client';
+
+const client = getClient();
+
+const GET_ALL_SLABS = gql`
+  query MyQuery {
+    slabs {
+      certification_number
+      title
+      issue
+      issue_date
+      issue_year
+      publisher
+      grade
+      page_quality
+      grade_date
+      grade_category
+      art_comments
+      key_comments
+      grader_notes
+      signatures
+      asking_price
+      purchase_date
+      purchase_platform
+      purchase_price
+      personal_note
+      created_at
+      updated_at
+      id
+    }
+  }
+`;
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,6 +47,19 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const fetchData = async () => {
+    try {
+      const result = await client.query({
+        query: GET_ALL_SLABS,
+      });
+      console.log('retrieving all slabs', result, result?.data);
+    } catch (err) {
+      console.error('Failed to fetch slabs', err);
+    }
+  };
+
+  await fetchData();
+
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>

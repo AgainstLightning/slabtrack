@@ -1,3 +1,5 @@
+/* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -716,9 +718,10 @@ export enum Cursor_Ordering {
   Desc = 'DESC'
 }
 
-export type AddToDatabaseMutationVariables = Exact<{
-  slabData: Slabs_Insert_Input;
-}>;
+export type MyQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AddToDatabaseMutation = { __typename?: 'mutation_root', insert_slabs_one?: { __typename?: 'slabs', id: any } | null };
+export type MyQueryQuery = { __typename?: 'query_root', slabs: Array<{ __typename?: 'slabs', certification_number: string, title: string, issue: string, issue_date?: string | null, issue_year?: string | null, publisher: string, grade: string, page_quality?: string | null, grade_date: string, grade_category: string, art_comments?: string | null, key_comments?: string | null, grader_notes?: string | null, signatures?: string | null, asking_price?: number | null, purchase_date?: any | null, purchase_platform?: string | null, purchase_price?: number | null, personal_note?: string | null, created_at?: any | null, updated_at?: any | null, id: any }> };
+
+
+export const MyQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MyQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slabs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"certification_number"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"issue"}},{"kind":"Field","name":{"kind":"Name","value":"issue_date"}},{"kind":"Field","name":{"kind":"Name","value":"issue_year"}},{"kind":"Field","name":{"kind":"Name","value":"publisher"}},{"kind":"Field","name":{"kind":"Name","value":"grade"}},{"kind":"Field","name":{"kind":"Name","value":"page_quality"}},{"kind":"Field","name":{"kind":"Name","value":"grade_date"}},{"kind":"Field","name":{"kind":"Name","value":"grade_category"}},{"kind":"Field","name":{"kind":"Name","value":"art_comments"}},{"kind":"Field","name":{"kind":"Name","value":"key_comments"}},{"kind":"Field","name":{"kind":"Name","value":"grader_notes"}},{"kind":"Field","name":{"kind":"Name","value":"signatures"}},{"kind":"Field","name":{"kind":"Name","value":"asking_price"}},{"kind":"Field","name":{"kind":"Name","value":"purchase_date"}},{"kind":"Field","name":{"kind":"Name","value":"purchase_platform"}},{"kind":"Field","name":{"kind":"Name","value":"purchase_price"}},{"kind":"Field","name":{"kind":"Name","value":"personal_note"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<MyQueryQuery, MyQueryQueryVariables>;

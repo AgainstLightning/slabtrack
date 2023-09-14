@@ -1,6 +1,7 @@
 "use client"
+import React, { useCallback, useEffect, useState } from 'react';
+import { gql } from '@apollo/client';
 import Table from '@/components/Table';
-import React, { useCallback, useState } from 'react';
 
 const testData = [
   {
@@ -39,8 +40,8 @@ const testData = [
 
 export default function Home() {
   const [certNumber, setCertNumber] = useState('2815581007');
-  const [data, setData] = useState({});
-
+  const [cgcData, setCgcData] = useState({});
+  const [tableData, setTableData] = useState([]);
 
   const handleSubmit: React.FormEventHandler = async (e) => {
     e.preventDefault();
@@ -48,7 +49,7 @@ export default function Home() {
     if (res.ok) {
       const data = await res.json();
       console.log("data body", data.body);
-      setData(data.body);
+      setCgcData(data.body);
     } else {
       console.log("HTTP-Error: " + res.status);
     }
@@ -70,7 +71,7 @@ export default function Home() {
         <button type="submit">Submit</button>
       </form>
       <Table data={testData} />
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(cgcData, null, 2)}</pre>
 
     </main>
   );

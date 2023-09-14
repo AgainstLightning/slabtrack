@@ -1,0 +1,844 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+"""ordering argument of a cursor"""
+enum cursor_ordering {
+  """ascending ordering of the cursor"""
+  ASC
+
+  """descending ordering of the cursor"""
+  DESC
+}
+
+scalar date
+
+"""
+Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'.
+"""
+input date_comparison_exp {
+  _eq: date
+  _gt: date
+  _gte: date
+  _in: [date!]
+  _is_null: Boolean
+  _lt: date
+  _lte: date
+  _neq: date
+  _nin: [date!]
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "slabs"
+  """
+  delete_slabs(
+    """filter the rows which have to be deleted"""
+    where: slabs_bool_exp!
+  ): slabs_mutation_response
+
+  """
+  delete single row from the table: "slabs"
+  """
+  delete_slabs_by_pk(id: uuid!): slabs
+
+  """
+  insert data into the table: "slabs"
+  """
+  insert_slabs(
+    """the rows to be inserted"""
+    objects: [slabs_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: slabs_on_conflict
+  ): slabs_mutation_response
+
+  """
+  insert a single row into the table: "slabs"
+  """
+  insert_slabs_one(
+    """the row to be inserted"""
+    object: slabs_insert_input!
+
+    """upsert condition"""
+    on_conflict: slabs_on_conflict
+  ): slabs
+
+  """
+  update data of the table: "slabs"
+  """
+  update_slabs(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: slabs_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: slabs_set_input
+
+    """filter the rows which have to be updated"""
+    where: slabs_bool_exp!
+  ): slabs_mutation_response
+
+  """
+  update single row of the table: "slabs"
+  """
+  update_slabs_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: slabs_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: slabs_set_input
+    pk_columns: slabs_pk_columns_input!
+  ): slabs
+
+  """
+  update multiples rows of table: "slabs"
+  """
+  update_slabs_many(
+    """updates to execute, in order"""
+    updates: [slabs_updates!]!
+  ): [slabs_mutation_response]
+}
+
+"""column ordering options"""
+enum order_by {
+  """in ascending order, nulls last"""
+  asc
+
+  """in ascending order, nulls first"""
+  asc_nulls_first
+
+  """in ascending order, nulls last"""
+  asc_nulls_last
+
+  """in descending order, nulls first"""
+  desc
+
+  """in descending order, nulls first"""
+  desc_nulls_first
+
+  """in descending order, nulls last"""
+  desc_nulls_last
+}
+
+type query_root {
+  """
+  fetch data from the table: "slabs"
+  """
+  slabs(
+    """distinct select on columns"""
+    distinct_on: [slabs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [slabs_order_by!]
+
+    """filter the rows returned"""
+    where: slabs_bool_exp
+  ): [slabs!]!
+
+  """
+  fetch aggregated fields from the table: "slabs"
+  """
+  slabs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [slabs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [slabs_order_by!]
+
+    """filter the rows returned"""
+    where: slabs_bool_exp
+  ): slabs_aggregate!
+
+  """fetch data from the table: "slabs" using primary key columns"""
+  slabs_by_pk(id: uuid!): slabs
+}
+
+"""
+columns and relationships of "slabs"
+"""
+type slabs {
+  art_comments: String
+  asking_price: Int
+  certification_number: String!
+  created_at: timestamptz
+  grade: String!
+  grade_category: String!
+  grade_date: String!
+  grader_notes: String
+  id: uuid!
+  issue: String!
+  issue_date: String
+  issue_year: String
+  key_comments: String
+  page_quality: String
+  personal_note: String
+  publisher: String!
+  purchase_date: date
+  purchase_platform: String
+  purchase_price: Int
+  signatures: String
+  title: String!
+  updated_at: timestamptz
+}
+
+"""
+aggregated selection of "slabs"
+"""
+type slabs_aggregate {
+  aggregate: slabs_aggregate_fields
+  nodes: [slabs!]!
+}
+
+"""
+aggregate fields of "slabs"
+"""
+type slabs_aggregate_fields {
+  avg: slabs_avg_fields
+  count(columns: [slabs_select_column!], distinct: Boolean): Int!
+  max: slabs_max_fields
+  min: slabs_min_fields
+  stddev: slabs_stddev_fields
+  stddev_pop: slabs_stddev_pop_fields
+  stddev_samp: slabs_stddev_samp_fields
+  sum: slabs_sum_fields
+  var_pop: slabs_var_pop_fields
+  var_samp: slabs_var_samp_fields
+  variance: slabs_variance_fields
+}
+
+"""aggregate avg on columns"""
+type slabs_avg_fields {
+  asking_price: Float
+  purchase_price: Float
+}
+
+"""
+Boolean expression to filter rows from the table "slabs". All fields are combined with a logical 'AND'.
+"""
+input slabs_bool_exp {
+  _and: [slabs_bool_exp!]
+  _not: slabs_bool_exp
+  _or: [slabs_bool_exp!]
+  art_comments: String_comparison_exp
+  asking_price: Int_comparison_exp
+  certification_number: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  grade: String_comparison_exp
+  grade_category: String_comparison_exp
+  grade_date: String_comparison_exp
+  grader_notes: String_comparison_exp
+  id: uuid_comparison_exp
+  issue: String_comparison_exp
+  issue_date: String_comparison_exp
+  issue_year: String_comparison_exp
+  key_comments: String_comparison_exp
+  page_quality: String_comparison_exp
+  personal_note: String_comparison_exp
+  publisher: String_comparison_exp
+  purchase_date: date_comparison_exp
+  purchase_platform: String_comparison_exp
+  purchase_price: Int_comparison_exp
+  signatures: String_comparison_exp
+  title: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "slabs"
+"""
+enum slabs_constraint {
+  """
+  unique or primary key constraint on columns "certification_number"
+  """
+  slabs_certification_number_key
+
+  """
+  unique or primary key constraint on columns "id"
+  """
+  slabs_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "slabs"
+"""
+input slabs_inc_input {
+  asking_price: Int
+  purchase_price: Int
+}
+
+"""
+input type for inserting data into table "slabs"
+"""
+input slabs_insert_input {
+  art_comments: String
+  asking_price: Int
+  certification_number: String
+  created_at: timestamptz
+  grade: String
+  grade_category: String
+  grade_date: String
+  grader_notes: String
+  id: uuid
+  issue: String
+  issue_date: String
+  issue_year: String
+  key_comments: String
+  page_quality: String
+  personal_note: String
+  publisher: String
+  purchase_date: date
+  purchase_platform: String
+  purchase_price: Int
+  signatures: String
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type slabs_max_fields {
+  art_comments: String
+  asking_price: Int
+  certification_number: String
+  created_at: timestamptz
+  grade: String
+  grade_category: String
+  grade_date: String
+  grader_notes: String
+  id: uuid
+  issue: String
+  issue_date: String
+  issue_year: String
+  key_comments: String
+  page_quality: String
+  personal_note: String
+  publisher: String
+  purchase_date: date
+  purchase_platform: String
+  purchase_price: Int
+  signatures: String
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type slabs_min_fields {
+  art_comments: String
+  asking_price: Int
+  certification_number: String
+  created_at: timestamptz
+  grade: String
+  grade_category: String
+  grade_date: String
+  grader_notes: String
+  id: uuid
+  issue: String
+  issue_date: String
+  issue_year: String
+  key_comments: String
+  page_quality: String
+  personal_note: String
+  publisher: String
+  purchase_date: date
+  purchase_platform: String
+  purchase_price: Int
+  signatures: String
+  title: String
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "slabs"
+"""
+type slabs_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [slabs!]!
+}
+
+"""
+on_conflict condition type for table "slabs"
+"""
+input slabs_on_conflict {
+  constraint: slabs_constraint!
+  update_columns: [slabs_update_column!]! = []
+  where: slabs_bool_exp
+}
+
+"""Ordering options when selecting data from "slabs"."""
+input slabs_order_by {
+  art_comments: order_by
+  asking_price: order_by
+  certification_number: order_by
+  created_at: order_by
+  grade: order_by
+  grade_category: order_by
+  grade_date: order_by
+  grader_notes: order_by
+  id: order_by
+  issue: order_by
+  issue_date: order_by
+  issue_year: order_by
+  key_comments: order_by
+  page_quality: order_by
+  personal_note: order_by
+  publisher: order_by
+  purchase_date: order_by
+  purchase_platform: order_by
+  purchase_price: order_by
+  signatures: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: slabs"""
+input slabs_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "slabs"
+"""
+enum slabs_select_column {
+  """column name"""
+  art_comments
+
+  """column name"""
+  asking_price
+
+  """column name"""
+  certification_number
+
+  """column name"""
+  created_at
+
+  """column name"""
+  grade
+
+  """column name"""
+  grade_category
+
+  """column name"""
+  grade_date
+
+  """column name"""
+  grader_notes
+
+  """column name"""
+  id
+
+  """column name"""
+  issue
+
+  """column name"""
+  issue_date
+
+  """column name"""
+  issue_year
+
+  """column name"""
+  key_comments
+
+  """column name"""
+  page_quality
+
+  """column name"""
+  personal_note
+
+  """column name"""
+  publisher
+
+  """column name"""
+  purchase_date
+
+  """column name"""
+  purchase_platform
+
+  """column name"""
+  purchase_price
+
+  """column name"""
+  signatures
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "slabs"
+"""
+input slabs_set_input {
+  art_comments: String
+  asking_price: Int
+  certification_number: String
+  created_at: timestamptz
+  grade: String
+  grade_category: String
+  grade_date: String
+  grader_notes: String
+  id: uuid
+  issue: String
+  issue_date: String
+  issue_year: String
+  key_comments: String
+  page_quality: String
+  personal_note: String
+  publisher: String
+  purchase_date: date
+  purchase_platform: String
+  purchase_price: Int
+  signatures: String
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type slabs_stddev_fields {
+  asking_price: Float
+  purchase_price: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type slabs_stddev_pop_fields {
+  asking_price: Float
+  purchase_price: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type slabs_stddev_samp_fields {
+  asking_price: Float
+  purchase_price: Float
+}
+
+"""
+Streaming cursor of the table "slabs"
+"""
+input slabs_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: slabs_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input slabs_stream_cursor_value_input {
+  art_comments: String
+  asking_price: Int
+  certification_number: String
+  created_at: timestamptz
+  grade: String
+  grade_category: String
+  grade_date: String
+  grader_notes: String
+  id: uuid
+  issue: String
+  issue_date: String
+  issue_year: String
+  key_comments: String
+  page_quality: String
+  personal_note: String
+  publisher: String
+  purchase_date: date
+  purchase_platform: String
+  purchase_price: Int
+  signatures: String
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate sum on columns"""
+type slabs_sum_fields {
+  asking_price: Int
+  purchase_price: Int
+}
+
+"""
+update columns of table "slabs"
+"""
+enum slabs_update_column {
+  """column name"""
+  art_comments
+
+  """column name"""
+  asking_price
+
+  """column name"""
+  certification_number
+
+  """column name"""
+  created_at
+
+  """column name"""
+  grade
+
+  """column name"""
+  grade_category
+
+  """column name"""
+  grade_date
+
+  """column name"""
+  grader_notes
+
+  """column name"""
+  id
+
+  """column name"""
+  issue
+
+  """column name"""
+  issue_date
+
+  """column name"""
+  issue_year
+
+  """column name"""
+  key_comments
+
+  """column name"""
+  page_quality
+
+  """column name"""
+  personal_note
+
+  """column name"""
+  publisher
+
+  """column name"""
+  purchase_date
+
+  """column name"""
+  purchase_platform
+
+  """column name"""
+  purchase_price
+
+  """column name"""
+  signatures
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+input slabs_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: slabs_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: slabs_set_input
+
+  """filter the rows which have to be updated"""
+  where: slabs_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type slabs_var_pop_fields {
+  asking_price: Float
+  purchase_price: Float
+}
+
+"""aggregate var_samp on columns"""
+type slabs_var_samp_fields {
+  asking_price: Float
+  purchase_price: Float
+}
+
+"""aggregate variance on columns"""
+type slabs_variance_fields {
+  asking_price: Float
+  purchase_price: Float
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "slabs"
+  """
+  slabs(
+    """distinct select on columns"""
+    distinct_on: [slabs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [slabs_order_by!]
+
+    """filter the rows returned"""
+    where: slabs_bool_exp
+  ): [slabs!]!
+
+  """
+  fetch aggregated fields from the table: "slabs"
+  """
+  slabs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [slabs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [slabs_order_by!]
+
+    """filter the rows returned"""
+    where: slabs_bool_exp
+  ): slabs_aggregate!
+
+  """fetch data from the table: "slabs" using primary key columns"""
+  slabs_by_pk(id: uuid!): slabs
+
+  """
+  fetch data from the table in a streaming manner: "slabs"
+  """
+  slabs_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [slabs_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: slabs_bool_exp
+  ): [slabs!]!
+}
+
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+scalar uuid
+
+"""
+Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'.
+"""
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
+

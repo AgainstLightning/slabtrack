@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "download-schema": "gq https://in-trout-49.hasura.app/v1/graphql -H \"X-Hasura-Admin-Secret: qb9d5XFFXTpJb36Zk0EDoiRHHbWMqgL9sUVZ6CN0jTYtqeVvJwToSIa1wMkik0fo\" --introspect --format json > schema.json"
+    "lint": "next lint"
   },
   "dependencies": {
     "@apollo/client": "^3.8.0-rc.2",
@@ -34,7 +33,9 @@
     "tailwindcss": "3.3.3"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.0",
-    "typescript": "^5.2.2"
+    "@graphql-codegen/cli": "5.0.0",
+    "typescript": "^5.2.2",
+    "@graphql-codegen/introspection": "4.0.0",
+    "@graphql-codegen/client-preset": "4.1.0"
   }
 }
