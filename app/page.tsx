@@ -1,78 +1,57 @@
-"use client"
-import React, { useCallback, useEffect, useState } from 'react';
-import { gql } from '@apollo/client';
+import React from 'react';
+import { getClient } from "@/lib/client";
 import Table from '@/components/Table';
+import SearchField from '@/components/SearchField';
+import { gql } from '@apollo/client';
 
-const testData = [
-  {
-    certification_number: "2815581007",
-    title: "Bone",
-    issue: "1",
-    issue_date: "1/96",
-    issue_year: "1996",
-    publisher: "Image Comics",
-    grade: "9.6",
-    page_quality: "WHITE",
-    grade_date: "06/29/2023",
-    grade_category: "Signature",
-    art_comments: "Jeff Smith cover",
-    key_comments: "Reprints Bone #1 from Cartoon Books.",
-    grader_notes: "indent center of front cover",
-    signatures: "SIGNED & SKETCH BY JEFF SMITH ON 6/16/23"
-  },
-  {
-    certification_number: "2815581007",
-    title: "Bone",
-    issue: "1",
-    issue_date: "1/96",
-    issue_year: "1996",
-    publisher: "Image Comics",
-    grade: "9.6",
-    page_quality: "WHITE",
-    grade_date: "06/29/2023",
-    grade_category: "Signature",
-    art_comments: "Jeff Smith cover",
-    key_comments: "Reprints Bone #1 from Cartoon Books.",
-    grader_notes: "indent center of front cover",
-    signatures: "SIGNED & SKETCH BY JEFF SMITH ON 6/16/23"
-  }
-]
+const client = getClient();
 
-export default function Home() {
-  const [certNumber, setCertNumber] = useState('2815581007');
-  const [cgcData, setCgcData] = useState({});
-  const [tableData, setTableData] = useState([]);
-
-  const handleSubmit: React.FormEventHandler = async (e) => {
-    e.preventDefault();
-    const res = await fetch(`http://localhost:3000/api/serverless-demo?certNumber=${certNumber}`);
-    if (res.ok) {
-      const data = await res.json();
-      console.log("data body", data.body);
-      setCgcData(data.body);
-    } else {
-      console.log("HTTP-Error: " + res.status);
+const GET_ALL_SLABS = gql`
+  query MyQuery {
+    slabs {
+      certification_number
+      title
+      issue
+      issue_date
+      issue_year
+      publisher
+      grade
+      page_quality
+      grade_date
+      grade_category
+      art_comments
+      key_comments
+      grader_notes
+      signatures
+      asking_price
+      purchase_date
+      purchase_platform
+      purchase_price
+      personal_note
+      created_at
+      updated_at
+      id
     }
-  };
+  }
+`;
 
+export default async function Home() {
+  let data = { slabs: [] };
 
-  const handleCertNumberChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
-    setCertNumber(e.target.value);
-  }, []);
+  try {
+    const result = await client.query({
+      query: GET_ALL_SLABS,
+    });
+    data.slabs = result?.data?.slabs;
+  } catch (err) {
+    console.error('Failed to fetch slabs', err);
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1>CGC Track</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Certification Number:
-          <input type="text" value={certNumber} onChange={handleCertNumberChange} />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-      <Table data={testData} />
-      <pre>{JSON.stringify(cgcData, null, 2)}</pre>
-
+      <SearchField />
+      <Table data={data.slabs} />
     </main>
   );
 }
