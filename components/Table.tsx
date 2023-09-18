@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { createColumnHelper, getCoreRowModel, useReactTable, flexRender } from '@tanstack/react-table';
-import { Slabs_Insert_Input } from '@/lib/gql/types';
+import { Slabs_Insert_Input } from '@/lib/gql/types'
 
-const row = {
+const row: Slabs_Insert_Input = {
   certification_number: "2815581007",
   title: "Bone",
   issue: "1",
@@ -75,7 +75,7 @@ const defaultColumns = [
 
 
 
-const Table = (props) => {
+const Table = (props: { data: any[] }) => {
   const table = useReactTable({
     data: props.data,
     columns: defaultColumns,
