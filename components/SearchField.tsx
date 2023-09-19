@@ -9,6 +9,7 @@ const SearchField = () => {
 
   useEffect(() => {
     if (cgcData) {
+      console.log("cgcData to save in useEffect", cgcData)
       saveSlabToDb(cgcData);
     }
   }, [cgcData]);
@@ -25,7 +26,7 @@ const SearchField = () => {
   };
 
   const handleCertNumberChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
-    setCertNumber(e.target.value);
+    setCertNumber(e.target.value)
   }, []);
 
   return (
@@ -56,6 +57,5 @@ async function saveSlabToDb(cgcData) {
   } else {
     console.log('HTTP-Error:', res.status);
   }
-  throw new Error('Function not implemented.');
 }
 

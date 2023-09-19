@@ -6,7 +6,7 @@ import { CGCData } from "../serverless-demo/route";
 const client = getClient();
 
 const INSERT_SLAB = gql`
-  mutation InsertSlab($object: Slabs_Insert_Input!) {
+  mutation InsertSlab($object: slabs_insert_input!) {
     insert_slabs_one(object: $object) {
       certification_number
       title
@@ -47,11 +47,15 @@ const addToDatabase = async (slabData: CGCData) => {
     return result;
   } catch (err) {
     console.error('Failed to add to database', err);
+    return err;
   }
 };
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  const body = await request.json();
-  console.log("request body", body)
-  return new NextResponse(JSON.stringify(body));
+  const reqBody = await request.json();
+  const dbResult = await addToDatabase(reqBody);
+
+  console.log("request body", reqBody);
+  console.log("dbResult", dbResult);
+  return new NextResponse(JSON.stringify(dbResult));
 }

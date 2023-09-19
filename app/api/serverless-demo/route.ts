@@ -43,6 +43,9 @@ const scrapeSlabDataFrom = (pageContent: CheerioAPI): CGCData => {
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const certNumber = "2815581007";
+  // 4320451024
+  console.log("request", request);
+  console.log("query", request.nextUrl.searchParams.get("certNumber"))
   const pageContent = await fetchCgcPageContentFor(certNumber);
 
   if (!pageContent) {
