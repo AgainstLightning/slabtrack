@@ -26,13 +26,13 @@ const SearchField = () => {
     }
   };
 
-  const handleCertNumberChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setCertNumber(e.target.value)
   }, []);
 
   return (
     <form onSubmit={handleSubmit} className='flex items-center'>
-      <Input size="sm" type="number" label="Certification Number" placeholder="Enter CGC Number" />
+      <Input onChange={handleChange} size="sm" type="number" label="Certification Number" placeholder="Enter CGC Number" />
       <Button color="primary" type="submit">Submit</Button>
     </form>
   );

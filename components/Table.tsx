@@ -37,15 +37,15 @@ const defaultColumns = [
   columnHelper.accessor("grade_category", {
     header: "Grade Category",
   }),
-  columnHelper.accessor("art_comments", {
-    header: "Art Comments",
-  }),
-  columnHelper.accessor("key_comments", {
-    header: "Key Comments",
-  }),
-  columnHelper.accessor("grader_notes", {
-    header: "Grader Notes",
-  }),
+  // columnHelper.accessor("art_comments", {
+  //   header: "Art Comments",
+  // }),
+  // columnHelper.accessor("key_comments", {
+  //   header: "Key Comments",
+  // }),
+  // columnHelper.accessor("grader_notes", {
+  //   header: "Grader Notes",
+  // }),
   columnHelper.accessor("signatures", {
     header: "Signatures",
   }),
