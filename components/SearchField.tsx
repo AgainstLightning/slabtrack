@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Slabs_Insert_Input } from '@/lib/gql/types';
+import { Button, Input } from '@nextui-org/react';
 
 const SearchField = () => {
   const [certNumber, setCertNumber] = useState('2815581007');
@@ -30,12 +31,9 @@ const SearchField = () => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Certification Number:
-        <input type="text" value={certNumber} onChange={handleCertNumberChange} />
-      </label>
-      <button type="submit">Submit</button>
+    <form onSubmit={handleSubmit} className='flex items-center'>
+      <Input size="sm" type="number" label="Certification Number" placeholder="Enter CGC Number" />
+      <Button color="primary" type="submit">Submit</Button>
     </form>
   );
 };

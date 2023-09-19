@@ -3,24 +3,7 @@
 import React from 'react';
 import { createColumnHelper, getCoreRowModel, useReactTable, flexRender } from '@tanstack/react-table';
 import { Slabs_Insert_Input } from '@/lib/gql/types'
-
-const row: Slabs_Insert_Input = {
-  certification_number: "2815581007",
-  title: "Bone",
-  issue: "1",
-  issue_date: "1/96",
-  issue_year: "1996",
-  publisher: "Image Comics",
-  grade: "9.6",
-  page_quality: "WHITE",
-  grade_date: "06/29/2023",
-  grade_category: "Signature",
-  art_comments: "Jeff Smith cover",
-  key_comments: "Reprints Bone #1 from Cartoon Books.",
-  grader_notes: "indent center of front cover",
-  signatures: "SIGNED & SKETCH BY JEFF SMITH ON 6/16/23"
-}
-
+import { Table as NextTable, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, group } from "@nextui-org/react";
 
 const columnHelper = createColumnHelper<Slabs_Insert_Input>();
 const defaultColumns = [
@@ -73,8 +56,6 @@ const defaultColumns = [
   // columnHelper.accessor("purchase_date", {}),
 ];
 
-
-
 const Table = (props: { data: any[] }) => {
   console.log("table data:", props.data)
   const table = useReactTable({
@@ -83,51 +64,35 @@ const Table = (props: { data: any[] }) => {
     getCoreRowModel: getCoreRowModel(),
   })
   return (
-    <table>
-      <thead>
+    <NextTable>
+      <TableHeader>
         {table.getHeaderGroups().map(headerGroup => (
-          <tr key={headerGroup.id}>
+          <TableHeader key={headerGroup.id}>
             {headerGroup.headers.map(header => (
-              <th key={header.id}>
+              <TableColumn key={header.id}>
                 {header.isPlaceholder
                   ? null
                   : flexRender(
                     header.column.columnDef.header,
                     header.getContext()
                   )}
-              </th>
+              </TableColumn>
             ))}
-          </tr>
+          </TableHeader>
         ))}
-      </thead>
-      <tbody>
+      </TableHeader>
+      <TableBody>
         {table.getRowModel().rows.map(row => (
-          <tr key={row.id}>
+          <TableRow key={row.id}>
             {row.getVisibleCells().map(cell => (
-              <td key={cell.id}>
+              <TableCell key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
+              </TableCell>
             ))}
-          </tr>
+          </TableRow>
         ))}
-      </tbody>
-      <tfoot>
-        {table.getFooterGroups().map(footerGroup => (
-          <tr key={footerGroup.id}>
-            {footerGroup.headers.map(header => (
-              <th key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                    header.column.columnDef.footer,
-                    header.getContext()
-                  )}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </tfoot>
-    </table>
+      </TableBody>
+    </NextTable>
   );
 };
 

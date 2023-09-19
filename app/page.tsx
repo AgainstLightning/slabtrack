@@ -3,8 +3,6 @@ import { getClient } from "@/lib/client";
 import Table from '@/components/Table';
 import SearchField from '@/components/SearchField';
 import { gql } from '@apollo/client';
-import { Button } from '@nextui-org/button';
-
 
 const client = getClient();
 
@@ -52,10 +50,11 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>CGC Track</h1>
-      <Button color='primary'>Button</Button>
-      <SearchField />
+    <main className='px-8 py-4'>
+      <div className='flex items-center justify-between pb-4'>
+        <h1 className=''>CGC TRACK</h1>
+        <SearchField />
+      </div>
       <Table data={data.slabs} />
     </main>
   );
