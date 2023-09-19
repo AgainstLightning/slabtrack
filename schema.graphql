@@ -271,6 +271,7 @@ type slabs {
   signatures: String
   title: String!
   updated_at: timestamptz
+  variant: String
 }
 
 """
@@ -333,6 +334,7 @@ input slabs_bool_exp {
   signatures: String_comparison_exp
   title: String_comparison_exp
   updated_at: timestamptz_comparison_exp
+  variant: String_comparison_exp
 }
 
 """
@@ -384,6 +386,7 @@ input slabs_insert_input {
   signatures: String
   title: String
   updated_at: timestamptz
+  variant: String
 }
 
 """aggregate max on columns"""
@@ -410,6 +413,7 @@ type slabs_max_fields {
   signatures: String
   title: String
   updated_at: timestamptz
+  variant: String
 }
 
 """aggregate min on columns"""
@@ -436,6 +440,7 @@ type slabs_min_fields {
   signatures: String
   title: String
   updated_at: timestamptz
+  variant: String
 }
 
 """
@@ -482,6 +487,7 @@ input slabs_order_by {
   signatures: order_by
   title: order_by
   updated_at: order_by
+  variant: order_by
 }
 
 """primary key columns input for table: slabs"""
@@ -558,6 +564,9 @@ enum slabs_select_column {
 
   """column name"""
   updated_at
+
+  """column name"""
+  variant
 }
 
 """
@@ -586,6 +595,7 @@ input slabs_set_input {
   signatures: String
   title: String
   updated_at: timestamptz
+  variant: String
 }
 
 """aggregate stddev on columns"""
@@ -641,6 +651,7 @@ input slabs_stream_cursor_value_input {
   signatures: String
   title: String
   updated_at: timestamptz
+  variant: String
 }
 
 """aggregate sum on columns"""
@@ -718,6 +729,9 @@ enum slabs_update_column {
 
   """column name"""
   updated_at
+
+  """column name"""
+  variant
 }
 
 input slabs_updates {

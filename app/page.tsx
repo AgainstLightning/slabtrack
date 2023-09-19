@@ -3,6 +3,8 @@ import { getClient } from "@/lib/client";
 import Table from '@/components/Table';
 import SearchField from '@/components/SearchField';
 import { gql } from '@apollo/client';
+import { Button } from '@nextui-org/button';
+
 
 const client = getClient();
 
@@ -11,6 +13,7 @@ const GET_ALL_SLABS = gql`
     slabs {
       certification_number
       title
+      variant
       issue
       issue_date
       issue_year
@@ -43,6 +46,7 @@ export default async function Home() {
       query: GET_ALL_SLABS,
     });
     data.slabs = result?.data?.slabs;
+    console.log('data', data)
   } catch (err) {
     console.error('Failed to fetch slabs', err);
   }
@@ -50,6 +54,7 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1>CGC Track</h1>
+      <Button color='primary'>Button</Button>
       <SearchField />
       <Table data={data.slabs} />
     </main>

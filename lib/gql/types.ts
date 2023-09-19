@@ -96,7 +96,9 @@ export enum Slabs_Select_Column {
   /** column name */
   Title = 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = 'updated_at',
+  /** column name */
+  Variant = 'variant'
 }
 
 /** Ordering options when selecting data from "slabs". */
@@ -123,6 +125,7 @@ export type Slabs_Order_By = {
   signatures?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
+  variant?: InputMaybe<Order_By>;
 };
 
 /** column ordering options */
@@ -168,6 +171,7 @@ export type Slabs_Bool_Exp = {
   signatures?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  variant?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -280,6 +284,7 @@ export type Slabs = {
   signatures?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  variant?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregated selection of "slabs" */
@@ -344,6 +349,7 @@ export type Slabs_Max_Fields = {
   signatures?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  variant?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
@@ -371,6 +377,7 @@ export type Slabs_Min_Fields = {
   signatures?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  variant?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate stddev on columns */
@@ -522,6 +529,7 @@ export type Slabs_Insert_Input = {
   signatures?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  variant?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** on_conflict condition type for table "slabs" */
@@ -584,7 +592,9 @@ export enum Slabs_Update_Column {
   /** column name */
   Title = 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UpdatedAt = 'updated_at',
+  /** column name */
+  Variant = 'variant'
 }
 
 /** input type for incrementing numeric columns in table "slabs" */
@@ -617,6 +627,7 @@ export type Slabs_Set_Input = {
   signatures?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  variant?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** primary key columns input for table: slabs */
@@ -707,6 +718,7 @@ export type Slabs_Stream_Cursor_Value_Input = {
   signatures?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  variant?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** ordering argument of a cursor */

@@ -76,6 +76,7 @@ const defaultColumns = [
 
 
 const Table = (props: { data: any[] }) => {
+  console.log("table data:", props.data)
   const table = useReactTable({
     data: props.data,
     columns: defaultColumns,
