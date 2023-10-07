@@ -40,7 +40,7 @@ const SearchField = () => {
 
 export default SearchField;
 
-async function saveSlabToDb(cgcData) {
+async function saveSlabToDb(cgcData: any) {
   console.log("data to save", cgcData)
   const res = await fetch(`http://localhost:3000/api/add-slab`, {
     method: 'POST',

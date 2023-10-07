@@ -56,17 +56,23 @@ const defaultColumns = [
   // columnHelper.accessor("purchase_date", {}),
 ];
 
-const Table = (props: { data: any[] }) => {
-  console.log("table data:", props.data)
+interface TableProps {
+  data: any[]
+}
+
+const Table: React.FC<TableProps> = ({ data = [] }) => {
   const table = useReactTable({
-    data: props.data,
+    data: data,
     columns: defaultColumns,
     getCoreRowModel: getCoreRowModel(),
   })
+  console.log('table', table)
+  console.log('table?.getRowModel()', table?.getRowModel());
+  console.log('table?.getRowModel()?.rows', table?.getRowModel()?.rows);
   return (
     <NextTable>
       <TableHeader>
-        {table.getHeaderGroups().map(headerGroup => (
+        {table?.getHeaderGroups()?.map(headerGroup => (
           <TableHeader key={headerGroup.id}>
             {headerGroup.headers.map(header => (
               <TableColumn key={header.id}>
@@ -82,9 +88,9 @@ const Table = (props: { data: any[] }) => {
         ))}
       </TableHeader>
       <TableBody>
-        {table.getRowModel().rows.map(row => (
+        {table?.getRowModel()?.rows?.map(row => (
           <TableRow key={row.id}>
-            {row.getVisibleCells().map(cell => (
+            {row?.getVisibleCells()?.map(cell => (
               <TableCell key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </TableCell>

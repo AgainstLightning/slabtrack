@@ -1,9 +1,9 @@
-import { getClient } from "@/lib/client";
+import { makeClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import { NextRequest, NextResponse } from "next/server";
 import { CGCData } from "../serverless-demo/route";
 
-const client = getClient();
+const client = makeClient();
 
 const INSERT_SLAB = gql`
   mutation InsertSlab($object: slabs_insert_input!) {
