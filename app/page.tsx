@@ -7,7 +7,7 @@ import SearchField from '@/components/SearchField';
 
 const SLABS_SUBSCRIPTION = gql`
 subscription SlabsSubscription {
-  slabs_stream(batch_size: 100, cursor: [{initial_value: {created_at: "2023-09-19T03:19:54.721981+00:00"}}]) {
+  slabs(order_by: {created_at: desc}) {
     certification_number
     title
     variant
@@ -37,18 +37,13 @@ subscription SlabsSubscription {
 
 export default function Home() {
   const { data, error, loading } = useSubscription(SLABS_SUBSCRIPTION);
-  const [slabs, setSlabs] = React.useState(data?.slabs_stream || []);
+  const [slabs, setSlabs] = React.useState(data?.slabs || []);
 
   useEffect(() => {
-    console.log('Data:', data);
-    console.log('Error:', error);
-    console.log('Loading:', loading);
-    if (data?.slabs_stream) {
-      setSlabs((prevSlabs) => [...prevSlabs, ...data?.slabs_stream]);
-
+    if (data?.slabs) {
+      setSlabs(data.slabs);
     }
-  }, [data, error, loading]);
-
+  }, [data]);
 
   if (loading) {
     return <div>Loading...</div>;
