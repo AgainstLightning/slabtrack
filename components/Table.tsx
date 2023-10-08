@@ -1,9 +1,29 @@
 "use client"
 
 import React from 'react';
-import { createColumnHelper, getCoreRowModel, useReactTable, flexRender } from '@tanstack/react-table';
 import { Slabs_Insert_Input } from '@/lib/gql/types'
-import { Table as NextTable, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, group } from "@nextui-org/react";
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  createColumnHelper
+} from "@tanstack/react-table";
+
+import {
+  Table as ShadTable,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
+}
+
 
 const columnHelper = createColumnHelper<Slabs_Insert_Input>();
 const defaultColumns = [
@@ -61,45 +81,59 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ data = [] }) => {
+
   const table = useReactTable({
-    data: data,
+    data,
     columns: defaultColumns,
     getCoreRowModel: getCoreRowModel(),
   })
-  console.log('table', table)
-  console.log('table?.getRowModel()', table?.getRowModel());
-  console.log('table?.getRowModel()?.rows', table?.getRowModel()?.rows);
+
   return (
-    <NextTable>
-      <TableHeader>
-        {table?.getHeaderGroups()?.map(headerGroup => (
-          <TableHeader key={headerGroup.id}>
-            {headerGroup.headers.map(header => (
-              <TableColumn key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-              </TableColumn>
-            ))}
-          </TableHeader>
-        ))}
-      </TableHeader>
-      <TableBody>
-        {table?.getRowModel()?.rows?.map(row => (
-          <TableRow key={row.id}>
-            {row?.getVisibleCells()?.map(cell => (
-              <TableCell key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+    <div className="rounded-md border">
+      <ShadTable>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                  </TableHead>
+                )
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
+                No results.
               </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </NextTable>
-  );
+            </TableRow>
+          )}
+        </TableBody>
+      </ShadTable>
+    </div >
+  )
 };
 
 export default Table;

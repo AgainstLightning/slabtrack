@@ -2,6 +2,8 @@
 
 import React, { useEffect } from 'react';
 import { gql, useSubscription } from '@apollo/client';
+
+
 import Table from '@/components/Table';
 import SearchField from '@/components/SearchField';
 import WizardModal from '@/components/WizardModal';
