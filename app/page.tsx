@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { gql, useSubscription } from '@apollo/client';
 import Table from '@/components/Table';
 import SearchField from '@/components/SearchField';
+import WizardModal from '@/components/WizardModal';
 
 const SLABS_SUBSCRIPTION = gql`
 subscription SlabsSubscription {
@@ -58,6 +59,7 @@ export default function Home() {
     <main className='px-8 py-4'>
       <div className='flex items-center justify-between pb-4'>
         <h1 className=''>CGC TRACK</h1>
+        <WizardModal />
         <SearchField />
       </div>
       <Table data={slabs} />
