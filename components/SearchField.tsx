@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from 'react';
-import { Slabs_Insert_Input } from '@/lib/gql/types';
+import { useState, useCallback } from 'react';
 import { Input } from './ui/input';
 import { useWizard } from 'react-use-wizard';
 
@@ -24,29 +23,19 @@ const SearchField = ({ setCgcData }) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setCertNumber(e.target.value)
   }, []);
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    nextStep()
+  }, []);
 
   return (
-    <form onSubmit={nextStep} className='flex items-center'>
-      <Input onChange={handleChange} type="number" placeholder="Enter CGC Number" />
+    <form onSubmit={handleSubmit} className='flex items-center'>
+      <Input onChange={handleChange} type="number" placeholder="Enter CGC Number" value={certNumber} />
     </form>
   );
 };
 
 export default SearchField;
 
-async function saveSlabToDb(cgcData: any) {
-  const res = await fetch(`http://localhost:3000/api/add-slab`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(cgcData),
-  })
-  if (res.ok) {
-    const data = await res.json();
-    console.log("post response", data)
-  } else {
-    console.log('HTTP-Error:', res.status);
-  }
-}
 

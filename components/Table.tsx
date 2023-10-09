@@ -24,7 +24,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-
 const columnHelper = createColumnHelper<Slabs_Insert_Input>();
 const defaultColumns = [
   columnHelper.accessor("title", {

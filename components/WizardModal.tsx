@@ -15,12 +15,12 @@ import SearchField from "./SearchField";
 import { PlusCircle } from "lucide-react";
 import { Slabs_Insert_Input } from "@/lib/gql/types";
 import Review from "./Review";
+import AdditionalDataForm from "./AdditionalFieldsForm";
 
 const DIALOG_DESCRIPTION_STEPS = [
-  "Provide your slab's certification number",
-  "Confirm your slab's details",
-  "Provide additional information about your slab",
-  "Review your slab submission"
+  "Provide certification number",
+  "Confirm details",
+  "Add additional information and submit",
 ];
 
 const WizardHeader = () => {
@@ -35,14 +35,13 @@ const WizardHeader = () => {
   );
 };
 
-const WizardFooter = () => {
-  const { activeStep, stepCount, nextStep, previousStep, isLastStep, handleStep } = useWizard();
-  console.log("activeStep", activeStep)
+const WizardFooter = ({ handleSubmit }) => {
+  const { activeStep, stepCount, nextStep, previousStep, isLastStep } = useWizard();
   return (
     <div className="flex justify-between items-center">
       <Button onClick={previousStep} variant="outline">Previous</Button>
       <span className="text-sm">{activeStep + 1} of {stepCount}</span>
-      {isLastStep ? <Button>Submit</Button> : <Button onClick={nextStep}>Next</Button>}
+      {isLastStep ? <Button onClick={handleSubmit}>Submit</Button> : <Button onClick={nextStep}>Next</Button>}
     </div>
   );
 };
@@ -77,27 +76,32 @@ const sampleSlabsObject: Slabs_Insert_Input = {
   variant: undefined,
 };
 
-const FIELDS: (keyof Slabs_Insert_Input)[] = Object.keys(sampleSlabsObject) as (keyof Slabs_Insert_Input)[];
-
-const Confirmation = ({ cgcData }) => {
-  console.log("cgcData", cgcData);
-  console.log("FIELDS", FIELDS)
-  return cgcData ? <div>{JSON.stringify(cgcData)}</div> : <div>Loading...</div>
+export type AdditionalFields = {
+  asking_price: string;
+  purchase_date: string;
+  purchase_platform: string;
+  purchase_price: string;
+  personal_note: string;
 }
 
+const FIELDS: (keyof Slabs_Insert_Input)[] = Object.keys(sampleSlabsObject) as (keyof Slabs_Insert_Input)[];
+
 const WizardModal = () => {
-  const [cgcData, setCgcData] = useState(null);
+  const [cgcData, setCgcData] = useState({});
+  const [additionalFields, setAdditionalFields] = useState<AdditionalFields>({ asking_price: "", purchase_date: "", purchase_platform: "", purchase_price: "", personal_note: "" });
+
+  const handleSubmit = () => {
+    saveSlab({ ...cgcData, ...additionalFields });
+  };
 
   return (
     <Dialog>
       <DialogTrigger asChild><Button><PlusCircle className="mr-4" />Add New Slab </Button></DialogTrigger>
       <DialogContent>
-        <Wizard header={<WizardHeader />} footer={<WizardFooter />}>
+        <Wizard header={<WizardHeader />} footer={<WizardFooter handleSubmit={handleSubmit} />}>
           <CertificationForm setCgcData={setCgcData} />
           <Review cgcData={cgcData} />
-          <div>Step 2</div>
-          <div>Step 3</div>
-          <div>Step 4</div>
+          <AdditionalDataForm additionalFields={additionalFields} setAdditionalFields={setAdditionalFields} />
         </Wizard>
       </DialogContent>
     </Dialog>
@@ -105,3 +109,17 @@ const WizardModal = () => {
 };
 
 export default WizardModal;
+
+async function saveSlab(slab: Partial<Slabs_Insert_Input>) {
+  const response = await fetch("/api/add-slab", {
+    method: "POST",
+    body: JSON.stringify(slab),
+  });
+
+  if (response.ok) {
+    console.log("Slab saved successfully!");
+  } else {
+    console.error("Error saving slab");
+    console.error(response);
+  }
+}

@@ -1,4 +1,7 @@
 import React from 'react';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import { Textarea } from './ui/textarea';
 
 type CgcData = {
   certification_number?: string;
@@ -64,23 +67,61 @@ const FIELD_DISPLAY_NAMES: Record<string, string> = {
 
 const Review: React.FC<{ cgcData: CgcData }> = ({ cgcData }) => {
   return (
-    <div className="flex flex-col max-w-xl">
-      <div className="grid grid-cols-2 gap-4 py-4">
-        {FULL_SLAB_DATA_FIELDS.map((field, index) => {
-          if (cgcData[field] && FIELD_DISPLAY_NAMES[field]) {
-            return (
-              <div key={index} className="col-span-1">
-                <strong className="block mb-1">{FIELD_DISPLAY_NAMES[field]}:</strong>
-                <span className="text-gray-700">{cgcData[field]}</span>
-              </div>
-            );
-          }
-          return null;
-        })}
+    <div className="flex flex-col bg-white">
+      <div className="mb-4 flex items-center">
+        <div className="text-4xl font-bold pr-4 border-r-2 mr-4">{cgcData.grade}</div>
+        <div>
+          <span className="text-gray-800 text-xl font-medium">{cgcData.title} #{cgcData.issue}</span>
+          <div className="text-blue-500 hover:underline">{cgcData.certification_number}</div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <Label>Issue Date</Label>
+          <Input className="mb-1" type="text" value={cgcData.issue_date} disabled />
+          <Label>Issue Year</Label>
+          <Input className="mb-1" type="text" value={cgcData.issue_year} disabled />
+          <Label htmlFor="publisher">Publisher</Label>
+          <Input className="mb-1" type="text" value={cgcData.publisher} disabled />
+        </div>
+        <div>
+          <Label>Grade Category</Label>
+          <Input className="mb-1" type="text" value={cgcData.grade_category} disabled />
+          <Label htmlFor="issue">Grade Date</Label>
+          <Input className="mb-1" type="text" value={cgcData.grade_date} disabled />
+          <Label>Page Quality</Label>
+          <Input className="mb-1" type="text" value={cgcData.page_quality} disabled />
+        </div>
+      </div>
+
+      {cgcData?.variant && (<div className="mb-4">
+        <Label>Variant</Label>
+        <Input type="text" value={cgcData.variant} disabled />
+      </div>)}
+
+      <div className="mb-4">
+        <Label>Art Comments</Label>
+        <Textarea value={cgcData.art_comments} disabled />
+      </div>
+
+      <div className="mb-4">
+        <Label htmlFor="key_comments">Key Comments</Label>
+        <Textarea id="key_comments" value={cgcData.key_comments} disabled />
+      </div>
+
+      <div className="mb-4">
+        <Label htmlFor="signatures">Signatures</Label>
+        <Textarea id="signatures" value={cgcData.signatures} disabled />
+      </div>
+
+      <div className="mb-4">
+        <Label htmlFor="grader_notes">Grader Notes</Label>
+        <Textarea id="grader_notes" value={cgcData.grader_notes} disabled />
       </div>
     </div>
   );
-
 };
 
 export default Review;
+
