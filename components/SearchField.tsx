@@ -3,20 +3,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Slabs_Insert_Input } from '@/lib/gql/types';
 import { Input } from './ui/input';
+import { useWizard } from 'react-use-wizard';
 
-const SearchField = () => {
+const SearchField = ({ setCgcData }) => {
   const [certNumber, setCertNumber] = useState('2815581007');
-  const [cgcData, setCgcData] = useState<Slabs_Insert_Input | null>(null);
-
-  useEffect(() => {
-    if (cgcData) {
-      console.log("cgcData to save in useEffect", cgcData)
-      saveSlabToDb(cgcData);
-    }
-  }, [cgcData]);
-
-  const handleSubmit: React.FormEventHandler = async (e) => {
-    e.preventDefault();
+  const { handleStep, nextStep } = useWizard();
+  handleStep(async () => {
     const res = await fetch(`http://localhost:3000/api/serverless-demo?certNumber=${certNumber}`);
     if (res.ok) {
       const data = await res.json();
@@ -24,14 +16,17 @@ const SearchField = () => {
     } else {
       console.log('HTTP-Error:', res.status);
     }
-  };
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log(`transitioning from step 1`);
+  });
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setCertNumber(e.target.value)
   }, []);
 
   return (
-    <form onSubmit={handleSubmit} className='flex items-center'>
+    <form onSubmit={nextStep} className='flex items-center'>
       <Input onChange={handleChange} type="number" placeholder="Enter CGC Number" />
     </form>
   );

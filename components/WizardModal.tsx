@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/dialog"
 import SearchField from "./SearchField";
 import { PlusCircle } from "lucide-react";
+import { Slabs_Insert_Input } from "@/lib/gql/types";
+import Review from "./Review";
 
 const DIALOG_DESCRIPTION_STEPS = [
   "Provide your slab's certification number",
@@ -45,22 +47,54 @@ const WizardFooter = () => {
   );
 };
 
-const CertificationForm = () => {
-  const { handleStep } = useWizard();
-  handleStep(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(`transitioning from step 1`);
-  });
-  return <SearchField />
+const CertificationForm = ({ setCgcData }) => {
+  return <SearchField setCgcData={setCgcData} />
+}
+
+const sampleSlabsObject: Slabs_Insert_Input = {
+  art_comments: undefined,
+  asking_price: undefined,
+  certification_number: undefined,
+  created_at: undefined,
+  grade: undefined,
+  grade_category: undefined,
+  grade_date: undefined,
+  grader_notes: undefined,
+  id: undefined,
+  issue: undefined,
+  issue_date: undefined,
+  issue_year: undefined,
+  key_comments: undefined,
+  page_quality: undefined,
+  personal_note: undefined,
+  publisher: undefined,
+  purchase_date: undefined,
+  purchase_platform: undefined,
+  purchase_price: undefined,
+  signatures: undefined,
+  title: undefined,
+  updated_at: undefined,
+  variant: undefined,
+};
+
+const FIELDS: (keyof Slabs_Insert_Input)[] = Object.keys(sampleSlabsObject) as (keyof Slabs_Insert_Input)[];
+
+const Confirmation = ({ cgcData }) => {
+  console.log("cgcData", cgcData);
+  console.log("FIELDS", FIELDS)
+  return cgcData ? <div>{JSON.stringify(cgcData)}</div> : <div>Loading...</div>
 }
 
 const WizardModal = () => {
+  const [cgcData, setCgcData] = useState(null);
+
   return (
     <Dialog>
       <DialogTrigger asChild><Button><PlusCircle className="mr-4" />Add New Slab </Button></DialogTrigger>
       <DialogContent>
         <Wizard header={<WizardHeader />} footer={<WizardFooter />}>
-          <CertificationForm />
+          <CertificationForm setCgcData={setCgcData} />
+          <Review cgcData={cgcData} />
           <div>Step 2</div>
           <div>Step 3</div>
           <div>Step 4</div>

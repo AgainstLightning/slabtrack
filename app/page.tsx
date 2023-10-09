@@ -38,6 +38,7 @@ subscription SlabsSubscription {
 }
 `;
 
+
 export default function Home() {
   const { data, error, loading } = useSubscription(SLABS_SUBSCRIPTION);
   const [slabs, setSlabs] = React.useState(data?.slabs || []);
