@@ -1,6 +1,7 @@
 "use client"
 
 import React from 'react';
+import { Delete, Trash2 } from 'lucide-react'
 import { Slabs_Insert_Input } from '@/lib/gql/types'
 import {
   ColumnDef,
@@ -18,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from './ui/button';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -26,6 +28,22 @@ interface DataTableProps<TData, TValue> {
 
 const columnHelper = createColumnHelper<Slabs_Insert_Input>();
 const defaultColumns = [
+  {
+    id: "delete",
+    header: "",
+    cell: (cell) => {
+      return (
+        <Button
+          variant="outline"
+          onClick={() => {
+            console.log("delete", cell.row.original);
+          }}
+        >
+          <Trash2 width={20} height={20} />
+        </Button>
+      );
+    }
+  },
   columnHelper.accessor("title", {
     header: "Title",
   }),
