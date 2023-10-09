@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Slabs_Insert_Input } from '@/lib/gql/types';
-import { Button, Input } from '@nextui-org/react';
+import { Input } from './ui/input';
 
 const SearchField = () => {
   const [certNumber, setCertNumber] = useState('2815581007');
@@ -32,8 +32,7 @@ const SearchField = () => {
 
   return (
     <form onSubmit={handleSubmit} className='flex items-center'>
-      <Input onChange={handleChange} size="sm" type="number" label="Certification Number" placeholder="Enter CGC Number" />
-      <Button color="primary" type="submit">Submit</Button>
+      <Input onChange={handleChange} type="number" placeholder="Enter CGC Number" />
     </form>
   );
 };
@@ -41,7 +40,6 @@ const SearchField = () => {
 export default SearchField;
 
 async function saveSlabToDb(cgcData: any) {
-  console.log("data to save", cgcData)
   const res = await fetch(`http://localhost:3000/api/add-slab`, {
     method: 'POST',
     headers: {

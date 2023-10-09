@@ -60,9 +60,8 @@ export default function Home() {
   return (
     <main className='px-8 py-4'>
       <div className='flex items-center justify-between pb-4'>
-        <h1 className=''>CGC TRACK</h1>
+        <span className='text-lg'><span className='font-black'>SLAB</span>TRACK</span>
         <WizardModal />
-        <SearchField />
       </div>
       <Table data={slabs} />
     </main>
