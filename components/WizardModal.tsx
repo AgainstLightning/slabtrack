@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import { Wizard, useWizard } from "react-use-wizard";
 import { Button } from "@/components/ui/button"
@@ -11,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import SearchField from "./SearchField";
-import { Plus } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 
 const DIALOG_DESCRIPTION_STEPS = [
   "Provide your slab's certification number",
@@ -46,14 +47,17 @@ const WizardFooter = () => {
 
 const CertificationForm = () => {
   const { handleStep } = useWizard();
-  handleStep(() => `transitioning from step 1`);
+  handleStep(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log(`transitioning from step 1`);
+  });
   return <SearchField />
 }
 
 const WizardModal = () => {
   return (
     <Dialog>
-      <DialogTrigger><Button><Plus className="mr-4" />Add New Slab </Button></DialogTrigger>
+      <DialogTrigger asChild><Button><PlusCircle className="mr-4" />Add New Slab </Button></DialogTrigger>
       <DialogContent>
         <Wizard header={<WizardHeader />} footer={<WizardFooter />}>
           <CertificationForm />
