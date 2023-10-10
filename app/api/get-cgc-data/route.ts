@@ -9,7 +9,7 @@ export interface CGCData {
   [key: string]: Content;
 }
 
-const FIELDS = [
+const FIELDS_TO_SCRAPE = [
   'CGC Cert #', 'Title', 'Issue', 'Issue Date', 'Issue Year',
   'Publisher', 'Variant', 'Grade', 'Page Quality', 'Grade Date',
   'Grade Category', 'Art Comments', 'Key Comments', 'Grader Notes', 'Signatures'
@@ -21,7 +21,7 @@ const fetchCgcPageContentFor = async (certNumber: string): Promise<CheerioAPI | 
     const { data } = await axios.get(`https://www.cgccomics.com/certlookup/${certNumber}/`);
     return cheerio.load(data);
   } catch (error) {
-    console.error('Error fetching page data:', error);
+    console.error('Error fetching CGC page data:', error);
     return null;
   }
 };
@@ -29,7 +29,7 @@ const fetchCgcPageContentFor = async (certNumber: string): Promise<CheerioAPI | 
 const scrapeSlabDataFrom = (pageContent: CheerioAPI): CGCData => {
   const rawData: CGCData = {};
 
-  FIELDS.forEach((field) => {
+  FIELDS_TO_SCRAPE.forEach((field) => {
     const element = pageContent(`dt:contains("${field}")`).next('dd');
     if (element.length > 0) {
       const content = element.html()?.replace(/<br>/g, '\n').trim() as Content;
@@ -43,7 +43,6 @@ const scrapeSlabDataFrom = (pageContent: CheerioAPI): CGCData => {
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const certNumber = request.nextUrl.searchParams.get("certNumber")
-  // 4320451024, 4300997025, 4306429007, 3750817004
   const pageContent = await fetchCgcPageContentFor(certNumber as string);
 
   if (!pageContent) {

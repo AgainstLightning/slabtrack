@@ -19,18 +19,14 @@ const removeSlab = async (id) => {
         id
       },
     });
-    console.log('Removed from database', result, result?.data)
     return result;
   } catch (err) {
-    console.error('Error removing from database', err);
     return err;
   }
 };
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   const slabId = request.nextUrl.searchParams.get("id");
-
-
   if (!slabId) {
     return new NextResponse(JSON.stringify({
       success: false,

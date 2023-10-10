@@ -17,14 +17,7 @@ import { Slabs_Insert_Input } from "@/lib/gql/types";
 import AdditionalDataForm from "./AdditionalFieldsForm";
 import Footer from "./Modal/Footer";
 
-const DIALOG_DESCRIPTION_STEPS = [
-  "Provide certification number",
-  "Confirm details",
-  "Add additional information and submit",
-];
-
 const WizardHeader = () => {
-  const { activeStep } = useWizard();
   return (
     <DialogHeader>
       <DialogTitle>Update slab</DialogTitle>
@@ -61,7 +54,7 @@ const EditModal = ({ slab }) => {
 
   return (
     <Dialog>
-      <DialogTrigger asChild><Button variant="ghost"><Pencil /></Button></DialogTrigger>
+      <DialogTrigger asChild><Button variant="ghost" size="icon"><Pencil width={20} height={20} /></Button></DialogTrigger>
       <DialogContent>
         <Wizard header={<WizardHeader />} footer={<Footer handleSubmit={handleSubmit} />}>
           <AdditionalDataForm additionalFields={additionalFields} setAdditionalFields={setAdditionalFields} />

@@ -50,6 +50,7 @@ const defaultColumns = [
         <div className='flex items-center'>
           <Button
             variant="ghost"
+            size="icon"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();

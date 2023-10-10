@@ -1,7 +1,6 @@
 import { makeClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import { NextRequest, NextResponse } from "next/server";
-import { CGCData } from "../serverless-demo/route";
 import { Slabs_Insert_Input } from "@/lib/gql/types";
 
 const client = makeClient();

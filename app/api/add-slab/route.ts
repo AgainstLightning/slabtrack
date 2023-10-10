@@ -1,7 +1,7 @@
 import { makeClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import { NextRequest, NextResponse } from "next/server";
-import { CGCData } from "../serverless-demo/route";
+import { CGCData } from "../get-cgc-data/route";
 
 const client = makeClient();
 
@@ -35,7 +35,6 @@ const INSERT_SLAB = gql`
 `;
 
 const addToDatabase = async (slabData: CGCData) => {
-  console.log("slabData in addToDatabase", slabData)
   try {
     const result = await client.mutate({
       mutation: INSERT_SLAB,
@@ -43,10 +42,8 @@ const addToDatabase = async (slabData: CGCData) => {
         object: slabData,
       },
     });
-    console.log('Added to database', result, result?.data)
     return result;
   } catch (err) {
-    console.error('Failed to add to database', err);
     return err;
   }
 };
@@ -54,8 +51,5 @@ const addToDatabase = async (slabData: CGCData) => {
 export async function POST(request: NextRequest): Promise<NextResponse> {
   const reqBody = await request.json();
   const dbResult = await addToDatabase(reqBody);
-
-  console.log("request body", reqBody);
-  console.log("dbResult", dbResult);
   return new NextResponse(JSON.stringify(dbResult));
 }
