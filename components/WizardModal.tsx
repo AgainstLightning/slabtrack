@@ -91,7 +91,8 @@ const WizardModal = () => {
   const [additionalFields, setAdditionalFields] = useState<AdditionalFields>({ asking_price: "", purchase_date: "", purchase_platform: "", purchase_price: "", personal_note: "" });
 
   const handleSubmit = () => {
-    saveSlab({ ...cgcData, ...additionalFields });
+    const populatedAdditionalFields = filterEmptyFields(additionalFields);
+    saveSlab({ ...cgcData, ...populatedAdditionalFields });
   };
 
   return (
@@ -109,6 +110,12 @@ const WizardModal = () => {
 };
 
 export default WizardModal;
+
+const filterEmptyFields = (fields: AdditionalFields): Partial<AdditionalFields> => {
+  return Object.fromEntries(
+    Object.entries(fields).filter(([_, value]) => value !== "")
+  );
+}
 
 async function saveSlab(slab: Partial<Slabs_Insert_Input>) {
   const response = await fetch("/api/add-slab", {

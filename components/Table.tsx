@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { Delete, Trash2 } from 'lucide-react'
+import { Delete, Pencil, Trash2 } from 'lucide-react'
 import { Slabs_Insert_Input } from '@/lib/gql/types'
 import {
   ColumnDef,
@@ -20,10 +20,24 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from './ui/button';
+import EditModal from './EditModal';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+}
+
+async function removeSlabById(id: string) {
+  const response = await fetch(`/api/remove-slab?id=${id}`, {
+    method: "POST",
+  });
+
+  if (response.ok) {
+    console.log("Slab removed successfully!");
+  } else {
+    console.error("Error removing slab");
+    console.error(response);
+  }
 }
 
 const columnHelper = createColumnHelper<Slabs_Insert_Input>();
@@ -33,14 +47,19 @@ const defaultColumns = [
     header: "",
     cell: (cell) => {
       return (
-        <Button
-          variant="outline"
-          onClick={() => {
-            console.log("delete", cell.row.original);
-          }}
-        >
-          <Trash2 width={20} height={20} />
-        </Button>
+        <div className='flex items-center'>
+          <Button
+            variant="ghost"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              removeSlabById(cell.row.original.id);
+            }}
+          >
+            <Trash2 width={20} height={20} />
+          </Button>
+          <EditModal slab={cell.row.original} />
+        </div>
       );
     }
   },
@@ -86,11 +105,21 @@ const defaultColumns = [
   columnHelper.accessor("signatures", {
     header: "Signatures",
   }),
-  // columnHelper.accessor("purchase_price", {}),
-  // columnHelper.accessor("purchase_platform", {}),
-  // columnHelper.accessor("personal_note", {}),
-  // columnHelper.accessor("asking_price", {}),
-  // columnHelper.accessor("purchase_date", {}),
+  columnHelper.accessor("purchase_price", {
+    header: "Purchase Price",
+  }),
+  columnHelper.accessor("purchase_platform", {
+    header: "Purchase Platform",
+  }),
+  columnHelper.accessor("personal_note", {
+    header: "Personal Note",
+  }),
+  columnHelper.accessor("asking_price", {
+    header: "Asking Price",
+  }),
+  columnHelper.accessor("purchase_date", {
+    header: "Purchase Date",
+  }),
 ];
 
 interface TableProps {
