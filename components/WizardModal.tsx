@@ -88,15 +88,17 @@ const FIELDS: (keyof Slabs_Insert_Input)[] = Object.keys(sampleSlabsObject) as (
 
 const WizardModal = () => {
   const [cgcData, setCgcData] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
   const [additionalFields, setAdditionalFields] = useState<AdditionalFields>({ asking_price: "", purchase_date: "", purchase_platform: "", purchase_price: "", personal_note: "" });
 
   const handleSubmit = () => {
     const populatedAdditionalFields = filterEmptyFields(additionalFields);
     saveSlab({ ...cgcData, ...populatedAdditionalFields });
+    setIsOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild><Button><PlusCircle className="mr-4" />Add New Slab </Button></DialogTrigger>
       <DialogContent>
         <Wizard header={<WizardHeader />} footer={<WizardFooter handleSubmit={handleSubmit} />}>

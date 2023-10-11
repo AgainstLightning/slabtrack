@@ -50,6 +50,7 @@ const EditModal = ({ slab }) => {
   const handleSubmit = () => {
     const populatedAdditionalFields = filterEmptyFields(additionalFields);
     updateSlab({ id: slab.id, ...populatedAdditionalFields });
+
   };
 
   return (
