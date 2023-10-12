@@ -14,14 +14,8 @@ const AdditionalFieldsForm: React.FC<AdditionalFieldsProps> = ({ additionalField
     setAdditionalFields(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // Submit the additionalFields to server or handle accordingly
-    console.log(additionalFields);
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
           <Label htmlFor="purchase_price" className="font-medium">Purchase Price</Label>

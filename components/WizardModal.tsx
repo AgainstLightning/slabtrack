@@ -124,11 +124,13 @@ async function saveSlab(slab: Partial<Slabs_Insert_Input>) {
     method: "POST",
     body: JSON.stringify(slab),
   });
+  console.log("saveslabe response:", response);
 
   if (response.ok) {
     console.log("Slab saved successfully!");
   } else {
     console.error("Error saving slab");
-    console.error(response);
+    const data = await response.json();
+    console.error("Error: ", data?.error?.message);
   }
 }

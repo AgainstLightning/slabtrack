@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { Wizard, useWizard } from "react-use-wizard";
+import { Wizard } from "react-use-wizard";
 import { Button } from "@/components/ui/button"
 
 import {
@@ -29,15 +29,15 @@ const WizardHeader = () => {
 };
 
 export type AdditionalFields = {
-  asking_price: string;
+  asking_price: number | undefined
   purchase_date: string;
   purchase_platform: string;
   purchase_price: string;
   personal_note: string;
 }
 
-const DEFAULT_ADDITIONAL_FIELDS: AdditionalFields = {
-  asking_price: "",
+const DEFAULT_VALUES: AdditionalFields = {
+  asking_price: undefined,
   purchase_date: "",
   purchase_platform: "",
   purchase_price: "",
@@ -45,12 +45,11 @@ const DEFAULT_ADDITIONAL_FIELDS: AdditionalFields = {
 };
 
 const EditModal = ({ slab }) => {
-  const [additionalFields, setAdditionalFields] = useState<AdditionalFields>({ ...DEFAULT_ADDITIONAL_FIELDS });
+  const [additionalFields, setAdditionalFields] = useState<AdditionalFields>({ ...DEFAULT_VALUES });
 
   const handleSubmit = () => {
     const populatedAdditionalFields = filterEmptyFields(additionalFields);
     updateSlab({ id: slab.id, ...populatedAdditionalFields });
-
   };
 
   return (

@@ -35,6 +35,7 @@ const INSERT_SLAB = gql`
 `;
 
 const addToDatabase = async (slabData: CGCData) => {
+  console.log("slabData", slabData);
   try {
     const result = await client.mutate({
       mutation: INSERT_SLAB,
@@ -42,14 +43,24 @@ const addToDatabase = async (slabData: CGCData) => {
         object: slabData,
       },
     });
-    return result;
+    console.log("result", result);
+    return { success: true, data: result };
   } catch (err) {
-    return err;
+    console.log("err", err);
+    return { success: false, error: err };
   }
 };
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   const reqBody = await request.json();
   const dbResult = await addToDatabase(reqBody);
-  return new NextResponse(JSON.stringify(dbResult));
+  console.log("dbResult", dbResult);
+
+  if (dbResult.success) {
+    return new NextResponse(JSON.stringify(dbResult.data), { status: 200 });
+  } else {
+    // Send a 500 status code (or another suitable error code) and the error message
+    return new NextResponse(JSON.stringify({ error: dbResult.error }), { status: 500 });
+  }
 }
+

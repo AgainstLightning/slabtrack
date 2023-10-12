@@ -42,14 +42,10 @@ export default function Home() {
   const [slabs, setSlabs] = React.useState(data?.slabs || []);
 
   useEffect(() => {
-    if (data?.slabs) {
-      setSlabs(data.slabs);
-    }
+    if (data?.slabs) setSlabs(data.slabs);
   }, [data]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
 
   if (error) {
     console.error(error);
