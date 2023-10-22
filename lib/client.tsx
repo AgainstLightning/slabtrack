@@ -25,8 +25,6 @@ const wsLink = new GraphQLWsLink(createClient({
   },
 }));
 
-console.log("SECRET KEY", process.env.NEXT_PUBLIC_HASURA_SECRET_KEY)
-
 const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query);

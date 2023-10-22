@@ -59,7 +59,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   if (dbResult.success) {
     return new NextResponse(JSON.stringify(dbResult.data), { status: 200 });
   } else {
-    // Send a 500 status code (or another suitable error code) and the error message
     return new NextResponse(JSON.stringify({ error: dbResult.error }), { status: 500 });
   }
 }

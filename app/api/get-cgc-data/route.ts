@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import cheerio, { CheerioAPI } from 'cheerio';
+import cheerio, { Cheerio, CheerioAPI, Element } from 'cheerio';
 import axios from 'axios';
 import type { NextRequest } from 'next/server';
 
@@ -9,47 +9,81 @@ export interface CGCData {
   [key: string]: Content;
 }
 
-const FIELDS_TO_SCRAPE = [
+const CGC_URL = 'https://www.cgccomics.com/certlookup';
+
+const FIELDS_TO_EXTRACT = [
   'CGC Cert #', 'Title', 'Issue', 'Issue Date', 'Issue Year',
   'Publisher', 'Variant', 'Grade', 'Page Quality', 'Grade Date',
   'Grade Category', 'Art Comments', 'Key Comments', 'Grader Notes', 'Signatures'
 ];
-const fieldToKey = (field: string): string => field.toLowerCase().replace(/ /g, '_');
 
-const fetchCgcPageContentFor = async (certNumber: string): Promise<CheerioAPI | null> => {
+const fieldToKey = (field: string): string =>
+  field.toLowerCase().replace(/ /g, '_');
+
+async function fetchCgcPageContentFor(certNumber: string): Promise<CheerioAPI | null> {
   try {
-    const { data } = await axios.get(`https://www.cgccomics.com/certlookup/${certNumber}/`);
+    const { data } = await axios.get(`${CGC_URL}/${certNumber}`);
+    console.log("---------------", data);
     return cheerio.load(data);
   } catch (error) {
     console.error('Error fetching CGC page data:', error);
     return null;
   }
-};
+}
 
-const scrapeSlabDataFrom = (pageContent: CheerioAPI): CGCData => {
+function getSlabDataFrom(pageContent: CheerioAPI): CGCData {
   const rawData: CGCData = {};
 
-  FIELDS_TO_SCRAPE.forEach((field) => {
-    const element = pageContent(`dt:contains("${field}")`).next('dd');
-    if (element.length > 0) {
-      const content = element.html()?.replace(/<br>/g, '\n').trim() as Content;
-      rawData[fieldToKey(field)] = content;
+  for (const field of FIELDS_TO_EXTRACT) {
+    const domElementForField = getDomElementFor(field, pageContent);
+
+    if (!domElementForField || domElementForField.length === 0) {
+      console.warn(`Could not find element for field: ${field}`);
+      continue; // Using continue to skip to the next iteration instead of breaking the loop.
     }
-  });
 
-  const { "cgc_cert_#": cgc_cert, ...rest } = rawData;
-  return { certification_number: cgc_cert, ...rest };
-};
+    const fieldContent = extractContentFrom(domElementForField);
 
-export async function GET(request: NextRequest): Promise<NextResponse> {
-  const certNumber = request.nextUrl.searchParams.get("certNumber")
-  const pageContent = await fetchCgcPageContentFor(certNumber as string);
+    if (!fieldContent) continue;
 
-  if (!pageContent) {
-    return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 });
+    rawData[fieldToKey(field)] = decodeHtmlEntities(fieldContent); // Decoding HTML entities
   }
 
-  const slabData = scrapeSlabDataFrom(pageContent);
+  const { "cgc_cert_#": certification_number, ...rest } = rawData;
+  return { certification_number, ...rest };
+}
+
+function getDomElementFor(field: string, pageContent: CheerioAPI): Cheerio<Element> {
+  // Handle special cases here if needed, based on unique HTML structures
+  return pageContent(`dt:contains("${field}")`).next('dd');
+}
+
+function extractContentFrom(element: Cheerio<Element>): string | undefined {
+  return element.html()?.replace(/<br>/g, '\n').trim();
+}
+
+function decodeHtmlEntities(str: string): string {
+  // Here you can use a library or a function that converts HTML entities.
+  // The exact implementation might depend on your runtime environment.
+  return str.replace(/&amp;/g, '&'); // Example for handling &
+}
+
+// Ensure that FIELDS_TO_EXTRACT has exact strings that appear in dt elements.
+
+export async function GET(request: NextRequest): Promise<NextResponse> {
+  const certificationNumber = request.nextUrl.searchParams.get("certNumber");
+
+  if (!certificationNumber) {
+    return NextResponse.json({ error: 'Certification number not provided' }, { status: 400 });
+  }
+
+  const pageContent = await fetchCgcPageContentFor(certificationNumber);
+
+  if (!pageContent) {
+    return NextResponse.json({ error: 'Failed to fetch data for the given certification number' }, { status: 500 });
+  }
+
+  const slabData = getSlabDataFrom(pageContent);
 
   return NextResponse.json(
     {

@@ -15,7 +15,7 @@ import {
 import { Pencil } from "lucide-react";
 import { Slabs_Insert_Input } from "@/lib/gql/types";
 import AdditionalDataForm from "./AdditionalFieldsForm";
-import Footer from "./Modal/Footer";
+import Footer from "./WizardModal/Footer";
 
 const WizardHeader = () => {
   return (

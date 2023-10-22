@@ -36,7 +36,6 @@ subscription SlabsSubscription {
 }
 `;
 
-
 export default function Home() {
   const { data, error, loading } = useSubscription(SLABS_SUBSCRIPTION);
   const [slabs, setSlabs] = React.useState(data?.slabs || []);
@@ -48,7 +47,6 @@ export default function Home() {
   if (loading) return <div>Loading...</div>;
 
   if (error) {
-    console.error(error);
     return <div>Error: {error.message}</div>;
   }
 

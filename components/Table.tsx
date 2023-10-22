@@ -136,7 +136,7 @@ const Table: React.FC<TableProps> = ({ data = [] }) => {
   })
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border whitespace-nowrap">
       <ShadTable>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
