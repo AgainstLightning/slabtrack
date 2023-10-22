@@ -11,7 +11,7 @@ mutation DeleteSlab($id: uuid!) {
 
 const client = makeClient();
 
-const removeSlab = async (id) => {
+const removeSlab = async (id: string) => {
   try {
     const result = await client.mutate({
       mutation: REMOVE_SLAB,

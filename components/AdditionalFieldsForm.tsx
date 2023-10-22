@@ -1,4 +1,4 @@
-import { AdditionalFields } from "./WizardModal";
+import { AdditionalFields } from "./EditModal";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";

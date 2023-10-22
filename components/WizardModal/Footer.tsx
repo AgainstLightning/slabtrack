@@ -1,7 +1,7 @@
 import { useWizard } from "react-use-wizard";
 import { Button } from "../ui/button";
 
-const Footer = ({ handleSubmit }) => {
+const Footer = ({ handleSubmit }: { handleSubmit: any }) => {
   const { activeStep, stepCount, nextStep, previousStep, isLastStep } = useWizard();
   return (
     <div className="flex justify-between items-center">

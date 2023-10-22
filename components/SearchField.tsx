@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react';
 import { Input } from './ui/input';
 import { useWizard } from 'react-use-wizard';
 
-const SearchField = ({ setCgcData }) => {
+const SearchField = ({ setCgcData }: { setCgcData: any }) => {
   const [certNumber, setCertNumber] = useState('2815581007');
   const { handleStep, nextStep } = useWizard();
 
@@ -24,7 +24,7 @@ const SearchField = ({ setCgcData }) => {
     setCertNumber(e.target.value)
   }, []);
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: any) => {
     e.preventDefault();
     e.stopPropagation();
     nextStep()

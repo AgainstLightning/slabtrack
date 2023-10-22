@@ -1,15 +1,12 @@
 "use client"
 import { useState } from "react";
-import { Wizard, useWizard } from "react-use-wizard";
+import { Wizard } from "react-use-wizard";
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import SearchField from "../SearchField";
@@ -21,7 +18,7 @@ import Header from "./Header";
 import { AdditionalFields } from "@/lib/types";
 import Footer from "./Footer";
 
-const CertificationForm = ({ setCgcData }) => {
+const CertificationForm = ({ setCgcData }: { setCgcData: any }) => {
   return <SearchField setCgcData={setCgcData} />
 }
 
@@ -87,7 +84,7 @@ const filterEmptyFields = (fields: AdditionalFields): Partial<AdditionalFields> 
   );
 }
 
-async function saveSlab(slab: Partial<Slabs_Insert_Input>, toast) {
+async function saveSlab(slab: Partial<Slabs_Insert_Input> | any, toast: any) {
   const response = await fetch("/api/add-slab", {
     method: "POST",
     body: JSON.stringify(slab),

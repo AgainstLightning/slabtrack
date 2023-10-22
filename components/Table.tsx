@@ -45,7 +45,7 @@ const defaultColumns = [
   {
     id: "delete",
     header: "",
-    cell: (cell) => {
+    cell: (cell: any) => {
       return (
         <div className='flex items-center'>
           <Button
@@ -103,9 +103,9 @@ const defaultColumns = [
   // columnHelper.accessor("grader_notes", {
   //   header: "Grader Notes",
   // }),
-  columnHelper.accessor("signatures", {
-    header: "Signatures",
-  }),
+  // columnHelper.accessor("signatures", {
+  //   header: "Signatures",
+  // }),
   columnHelper.accessor("purchase_price", {
     header: "Purchase Price",
   }),

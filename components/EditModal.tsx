@@ -29,7 +29,7 @@ const WizardHeader = () => {
 };
 
 export type AdditionalFields = {
-  asking_price: number | undefined
+  asking_price: string;
   purchase_date: string;
   purchase_platform: string;
   purchase_price: string;
@@ -37,14 +37,14 @@ export type AdditionalFields = {
 }
 
 const DEFAULT_VALUES: AdditionalFields = {
-  asking_price: undefined,
+  asking_price: "",
   purchase_date: "",
   purchase_platform: "",
   purchase_price: "",
   personal_note: "",
 };
 
-const EditModal = ({ slab }) => {
+const EditModal = ({ slab }: { slab: any }) => {
   const [additionalFields, setAdditionalFields] = useState<AdditionalFields>({ ...DEFAULT_VALUES });
 
   const handleSubmit = () => {
@@ -72,7 +72,7 @@ const filterEmptyFields = (fields: AdditionalFields): Partial<AdditionalFields> 
   );
 }
 
-async function updateSlab(slab: Partial<Slabs_Insert_Input>) {
+async function updateSlab(slab: Partial<Slabs_Insert_Input> | any) {
   const response = await fetch("/api/update-slab", {
     method: "POST",
     body: JSON.stringify(slab),
