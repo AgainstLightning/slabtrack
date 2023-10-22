@@ -11,6 +11,7 @@ type AdditionalFieldsProps = {
 const AdditionalFieldsForm: React.FC<AdditionalFieldsProps> = ({ additionalFields, setAdditionalFields }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
+    console.log("deployyyyyy");
     setAdditionalFields(prevState => ({ ...prevState, [name]: value }));
   };
 
