@@ -1,14 +1,14 @@
 "use client"
 import { useState } from "react";
 import { Wizard } from "react-use-wizard";
-import { Button } from "@/components/ui/button"
-import { useToast } from "@/components/ui/use-toast"
+import { Button } from "../ui/button"
+import { useToast } from "../ui/use-toast"
 
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "../ui/dialog"
 import SearchField from "../SearchField";
 import { PlusCircle } from "lucide-react";
 import { Slabs_Insert_Input } from "@/lib/gql/types";
@@ -48,7 +48,6 @@ const sampleSlabsObject: Slabs_Insert_Input = {
   variant: undefined,
 };
 
-const FIELDS: (keyof Slabs_Insert_Input)[] = Object.keys(sampleSlabsObject) as (keyof Slabs_Insert_Input)[];
 
 const WizardModal = () => {
   const [cgcData, setCgcData] = useState({});
@@ -64,7 +63,7 @@ const WizardModal = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild><Button><PlusCircle className="mr-4" />Add New Slab </Button></DialogTrigger>
+      <DialogTrigger asChild><Button><PlusCircle className="mr-4" />Track New Slab </Button></DialogTrigger>
       <DialogContent>
         <Wizard header={<Header />} footer={<Footer handleSubmit={handleSubmit} />}>
           <CertificationForm setCgcData={setCgcData} />

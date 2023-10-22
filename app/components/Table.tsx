@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { Delete, Pencil, Trash2 } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { Slabs_Insert_Input } from '@/lib/gql/types'
 import {
   ColumnDef,
@@ -18,7 +18,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "./ui/table";
 import { Button } from './ui/button';
 import EditModal from './EditModal';
 
@@ -135,7 +135,6 @@ const Table: React.FC<TableProps> = ({ data = [] }) => {
     getCoreRowModel: getCoreRowModel(),
   })
 
-  console.log("table baby table")
   return (
     <div className="rounded-md border whitespace-nowrap">
       <ShadTable>

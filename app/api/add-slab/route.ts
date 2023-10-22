@@ -35,7 +35,6 @@ const INSERT_SLAB = gql`
 `;
 
 const addToDatabase = async (slabData: CGCData) => {
-  console.log("slabData", slabData);
   try {
     const result = await client.mutate({
       mutation: INSERT_SLAB,
@@ -43,10 +42,8 @@ const addToDatabase = async (slabData: CGCData) => {
         object: slabData,
       },
     });
-    console.log("result", result);
     return { success: true, data: result };
   } catch (err) {
-    console.log("err", err);
     return { success: false, error: err };
   }
 };

@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useCallback } from 'react';
-import { Input } from './ui/input';
 import { useWizard } from 'react-use-wizard';
+import { Input } from './ui/input';
 
 const SearchField = ({ setCgcData }: { setCgcData: any }) => {
   const [certNumber, setCertNumber] = useState('2815581007');

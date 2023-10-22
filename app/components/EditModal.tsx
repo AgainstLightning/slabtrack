@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Wizard } from "react-use-wizard";
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 
 import {
   Dialog,
@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "./ui/dialog"
 import { Pencil } from "lucide-react";
 import { Slabs_Insert_Input } from "@/lib/gql/types";
 import AdditionalDataForm from "./AdditionalFieldsForm";

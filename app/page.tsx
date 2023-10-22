@@ -3,8 +3,8 @@
 import React, { useEffect } from 'react';
 import { gql, useSubscription } from '@apollo/client';
 
-import Table from '@/components/Table';
-import WizardModal from "@/components/WizardModal";
+import Table from './components/Table';
+import WizardModal from "./components/WizardModal";
 
 const SLABS_SUBSCRIPTION = gql`
 subscription SlabsSubscription {
