@@ -71,7 +71,7 @@ function decodeHtmlEntities(str: string): string {
 // Ensure that FIELDS_TO_EXTRACT has exact strings that appear in dt elements.
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  const certificationNumber = request.nextUrl.searchParams.get("certNumber");
+  const certificationNumber = request.nextUrl.searchParams.get("certificationNumber");
 
   if (!certificationNumber) {
     return NextResponse.json({ error: 'Certification number not provided' }, { status: 400 });

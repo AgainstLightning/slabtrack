@@ -9,15 +9,11 @@ const SearchField = ({ setCgcData }: { setCgcData: any }) => {
   const { handleStep, nextStep } = useWizard();
 
   handleStep(async () => {
-    const res = await fetch(`http://localhost:3000/api/get-cgc-data/?certNumber=${certNumber}`);
-    if (res.ok) {
-      const data = await res.json();
-      setCgcData(data.body);
-    } else {
-      console.log('HTTP-Error:', res.status);
+    const { body } = await fetchCgcDataByCertificationNumber(certNumber);
+    if (body) {
+      console.log('inner', body);
+      setCgcData(body)
     }
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
   });
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
@@ -39,4 +35,17 @@ const SearchField = ({ setCgcData }: { setCgcData: any }) => {
 
 export default SearchField;
 
+async function fetchCgcDataByCertificationNumber(certificationNumber: string) {
+  const response = await fetch(`/api/get-cgc-data?certificationNumber=${certificationNumber}`, {
+    method: "GET",
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    console.error("Error removing slab");
+    console.error(response);
+  }
+}
 
