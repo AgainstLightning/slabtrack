@@ -135,6 +135,7 @@ const Table: React.FC<TableProps> = ({ data = [] }) => {
     getCoreRowModel: getCoreRowModel(),
   })
 
+  console.log("table baby table")
   return (
     <div className="rounded-md border whitespace-nowrap">
       <ShadTable>
