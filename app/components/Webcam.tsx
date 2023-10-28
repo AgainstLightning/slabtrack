@@ -1,23 +1,13 @@
-import { useEffect, useRef } from "react";
+import useZxing from "@/lib/useZxing";
 
 const Webcam = () => {
-  const videoRef = useRef<HTMLVideoElement | null>(null)
-
-  useEffect(() => {
-    const video = videoRef?.current;
-    const getVideo = async () => {
-      if (!navigator.mediaDevices.getUserMedia || video === null) return;
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { width: 1280, height: 720 }
-      });
-
-      video.srcObject = stream;
-      video.play();
-    };
-
-    getVideo();
-  }), [videoRef];
-
+  const onResult = (result: any) => {
+    console.log("WE GOT ONE!", result);
+  };
+  const onError = (error: Error) => {
+    console.log("ERROR!", error);
+  };
+  const { ref: videoRef } = useZxing({ onResult, onError });
   return <div><video className="bg-black" ref={videoRef} /></div>;
 };
 
