@@ -5,6 +5,7 @@ import { gql, useSubscription } from '@apollo/client';
 
 import Table from './components/Table';
 import WizardModal from "./components/WizardModal";
+import Webcam from "./components/Webcam";
 
 const SLABS_SUBSCRIPTION = gql`
 subscription SlabsSubscription {
@@ -50,12 +51,15 @@ export default function Home() {
     return <div>Error: {error.message}</div>;
   }
 
+
   return (
     <main className='px-8 py-4'>
       <div className='flex items-center justify-between pb-4'>
         <span className='text-lg'><span className='font-black'>SLAB</span>TRACK</span>
         <WizardModal />
       </div>
+      <Webcam />
+
       <Table data={slabs} />
     </main>
   );

@@ -4,9 +4,9 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 const config: CodegenConfig = {
   overwrite: true,
   schema: "./schema.graphql",
-  documents: "app/**/*.tsx",
+  documents: "./app/**/*.tsx",
   generates: {
-    "src/gql/": {
+    "./lib/gql/": {
       preset: "client",
       plugins: []
     },
