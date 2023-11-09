@@ -36,7 +36,8 @@ function getSlabDataFrom(pageContent: CheerioAPI): CGCData {
 
   for (const field of FIELDS_TO_EXTRACT) {
     const domElementForField = getDomElementFor(field, pageContent);
-
+    console.log("field", field)
+    console.log("domElementForField", domElementForField)
     if (!domElementForField || domElementForField.length === 0) {
       console.warn(`Could not find element for field: ${field}`);
       continue; // Using continue to skip to the next iteration instead of breaking the loop.
@@ -78,13 +79,14 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   const pageContent = await fetchCgcPageContentFor(certificationNumber);
+  console.log("pageContent", pageContent)
 
   if (!pageContent) {
     return NextResponse.json({ error: 'Failed to fetch data for the given certification number' }, { status: 500 });
   }
 
   const slabData = getSlabDataFrom(pageContent);
-
+  console.log("slabData", slabData)
   return NextResponse.json(
     {
       body: slabData,

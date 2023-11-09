@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Trash2 } from 'lucide-react'
-import { Slabs_Insert_Input } from '@/lib/gql/types'
+import { Slabs_Insert_Input } from '@/lib/gql/graphql'
 import {
   ColumnDef,
   flexRender,

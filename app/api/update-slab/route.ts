@@ -1,7 +1,7 @@
 import { makeClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import { NextRequest, NextResponse } from "next/server";
-import { Slabs_Insert_Input } from "@/lib/gql/types";
+import { Slabs_Insert_Input } from "@/lib/gql/graphql";
 
 const client = makeClient();
 

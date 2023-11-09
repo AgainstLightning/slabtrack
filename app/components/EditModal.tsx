@@ -13,7 +13,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog"
 import { Pencil } from "lucide-react";
-import { Slabs_Insert_Input } from "@/lib/gql/types";
+import { Slabs_Insert_Input } from "@/lib/gql/graphql";
 import AdditionalDataForm from "./AdditionalFieldsForm";
 import Footer from "./WizardModal/Footer";
 
