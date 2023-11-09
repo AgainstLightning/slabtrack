@@ -42,28 +42,28 @@ async function removeSlabById(id: string) {
 
 const columnHelper = createColumnHelper<Slabs_Insert_Input>();
 const defaultColumns = [
-  {
-    id: "delete",
-    header: "",
-    cell: (cell: any) => {
-      return (
-        <div className='flex items-center'>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              removeSlabById(cell.row.original.id);
-            }}
-          >
-            <Trash2 width={20} height={20} />
-          </Button>
-          <EditModal slab={cell.row.original} />
-        </div>
-      );
-    }
-  },
+  // {
+  //   id: "delete",
+  //   header: "",
+  //   cell: (cell: any) => {
+  //     return (
+  //       <div className='flex items-center'>
+  //         <Button
+  //           variant="ghost"
+  //           size="icon"
+  //           onClick={(e) => {
+  //             e.preventDefault();
+  //             e.stopPropagation();
+  //             removeSlabById(cell.row.original.id);
+  //           }}
+  //         >
+  //           <Trash2 width={20} height={20} />
+  //         </Button>
+  //         <EditModal slab={cell.row.original} />
+  //       </div>
+  //     );
+  //   }
+  // },
   columnHelper.accessor("title", {
     header: "Title",
   }),
