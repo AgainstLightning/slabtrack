@@ -67,23 +67,26 @@ const defaultColumns = [
   columnHelper.accessor("title", {
     header: "Title",
   }),
-  columnHelper.accessor("certification_number", {
-    header: "Certification Number",
+  columnHelper.accessor("grade", {
+    header: "Grade",
   }),
   columnHelper.accessor("issue", {
     header: "Issue",
   }),
+  columnHelper.accessor("variant", {
+    header: "Variant",
+  }),
   columnHelper.accessor("issue_date", {
     header: "Issue Date",
   }),
-  columnHelper.accessor("issue_year", {
-    header: "Issue Year",
-  }),
+  // columnHelper.accessor("issue_year", {
+  //   header: "Issue Year",
+  // }),
   columnHelper.accessor("publisher", {
     header: "Publisher",
   }),
-  columnHelper.accessor("grade", {
-    header: "Grade",
+  columnHelper.accessor("certification_number", {
+    header: "Certification Number",
   }),
   columnHelper.accessor("page_quality", {
     header: "Page Quality",
@@ -91,9 +94,7 @@ const defaultColumns = [
   columnHelper.accessor("grade_date", {
     header: "Grade Date",
   }),
-  columnHelper.accessor("grade_category", {
-    header: "Grade Category",
-  }),
+
   // columnHelper.accessor("art_comments", {
   //   header: "Art Comments",
   // }),
