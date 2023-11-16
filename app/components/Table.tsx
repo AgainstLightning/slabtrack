@@ -76,6 +76,12 @@ const defaultColumns = [
   columnHelper.accessor("variant", {
     header: "Variant",
   }),
+  columnHelper.accessor("key_comments", {
+    header: "Key Comments",
+  }),
+  columnHelper.accessor("grade_date", {
+    header: "Grade Date",
+  }),
   columnHelper.accessor("issue_date", {
     header: "Issue Date",
   }),
@@ -98,9 +104,7 @@ const defaultColumns = [
   // columnHelper.accessor("art_comments", {
   //   header: "Art Comments",
   // }),
-  // columnHelper.accessor("key_comments", {
-  //   header: "Key Comments",
-  // }),
+
   // columnHelper.accessor("grader_notes", {
   //   header: "Grader Notes",
   // }),
