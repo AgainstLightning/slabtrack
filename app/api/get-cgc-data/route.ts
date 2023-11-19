@@ -23,7 +23,6 @@ const fieldToKey = (field: string): string =>
 async function fetchCgcPageContentFor(certNumber: string): Promise<CheerioAPI | null> {
   try {
     const { data } = await axios.get(`${CGC_URL}/${certNumber}`);
-    console.log("---------------", data);
     return cheerio.load(data);
   } catch (error) {
     console.error('Error fetching CGC page data:', error);
@@ -36,18 +35,16 @@ function getSlabDataFrom(pageContent: CheerioAPI): CGCData {
 
   for (const field of FIELDS_TO_EXTRACT) {
     const domElementForField = getDomElementFor(field, pageContent);
-    console.log("field", field)
-    console.log("domElementForField", domElementForField)
     if (!domElementForField || domElementForField.length === 0) {
       console.warn(`Could not find element for field: ${field}`);
-      continue; // Using continue to skip to the next iteration instead of breaking the loop.
+      continue;
     }
 
     const fieldContent = extractContentFrom(domElementForField);
 
     if (!fieldContent) continue;
 
-    rawData[fieldToKey(field)] = decodeHtmlEntities(fieldContent); // Decoding HTML entities
+    rawData[fieldToKey(field)] = decodeHtmlEntities(fieldContent);
   }
 
   const { "cgc_cert_#": certification_number, ...rest } = rawData;
@@ -55,7 +52,6 @@ function getSlabDataFrom(pageContent: CheerioAPI): CGCData {
 }
 
 function getDomElementFor(field: string, pageContent: CheerioAPI): Cheerio<Element> {
-  // Handle special cases here if needed, based on unique HTML structures
   return pageContent(`dt:contains("${field}")`).next('dd');
 }
 
@@ -64,12 +60,9 @@ function extractContentFrom(element: Cheerio<Element>): string | undefined {
 }
 
 function decodeHtmlEntities(str: string): string {
-  // Here you can use a library or a function that converts HTML entities.
-  // The exact implementation might depend on your runtime environment.
-  return str.replace(/&amp;/g, '&'); // Example for handling &
+  return str.replace(/&amp;/g, '&');
 }
 
-// Ensure that FIELDS_TO_EXTRACT has exact strings that appear in dt elements.
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const certificationNumber = request.nextUrl.searchParams.get("certificationNumber");
@@ -79,14 +72,13 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   const pageContent = await fetchCgcPageContentFor(certificationNumber);
-  console.log("pageContent", pageContent)
 
   if (!pageContent) {
     return NextResponse.json({ error: 'Failed to fetch data for the given certification number' }, { status: 500 });
   }
 
   const slabData = getSlabDataFrom(pageContent);
-  console.log("slabData", slabData)
+
   return NextResponse.json(
     {
       body: slabData,

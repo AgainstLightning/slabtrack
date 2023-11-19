@@ -17,16 +17,14 @@ const UPDATE_SLAB = gql`
 `;
 
 const updateSlab = async (id: string, slabData: Partial<Slabs_Insert_Input>) => {
-  console.log("slabData in updateToDatabase", slabData)
   try {
     const result = await client.mutate({
       mutation: UPDATE_SLAB,
       variables: {
-        id: id,          // Provide ID for the 'where' clause
-        set: slabData,   // Provide rest of the data for the '_set' clause
+        id: id,
+        set: slabData,
       },
     });
-    console.log('Update', result, result?.data)
     return result;
   } catch (err) {
     console.error('Failed to update', err);
@@ -35,10 +33,8 @@ const updateSlab = async (id: string, slabData: Partial<Slabs_Insert_Input>) => 
 };
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  const { id, ...restOfData } = await request.json();  // De-structure ID separately
+  const { id, ...restOfData } = await request.json();
   const dbResult = await updateSlab(id, restOfData);
 
-  console.log("request body", { id, ...restOfData });
-  console.log("dbResult", dbResult);
   return new NextResponse(JSON.stringify(dbResult));
 }

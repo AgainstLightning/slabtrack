@@ -205,18 +205,21 @@ Cannot speak on Next.js, without speaking on Vercel.
 
 Now, that's a lot of history but we also managed to traverse 20 something years. If you remember, way back before Al Gore, I mentioned a small app I've built for the purposes of seeing all of this come together, to experience what modern-ish web development looks like. So, let's talk about that.
 
+But before we do...
 
-This is a comic book. This is that same book in what we call a slab. This is a graded comic, as determined by a third party company, CGC. This comic has many properties, name, series, page quality, signatures, etc. but the primary service that CGC provides is the grading of the quality of a book. The grade of 9.8 is often sought as the highest a book gets. While a 9.9 and a 10 are possible, they are exceedingly rare.
+This is a comic book. This is that same book, graded, in what we call a slab. This comic has many properties, name, series, page quality, signatures, etc. but the primary service that CGC provides is the grading of the quality of a book. The grade of 9.8 is often sought as the highest a book gets. While a 9.9 and a 10 are possible, they are exceedingly rare.
 
-This is my comic book. This is my comic room and these are my graded comics. I wanted a database of my slabs so for todays app, I have built out SlabTrack using the technologies we have discussed today.
+This is my comic book. This is my comic room and these are my graded comics. I've been wanting a database of all my slabs so for todays app, I have built out SlabTrack using the technologies we have discussed today.
 
 ((Demo of app and code))
+- show this file and say hi to past me
+  - you're welcome!
+  - (hope it's going well, future me!)
 - show react components
 - show graphql queries
 - show routes
 - show api routes
 - show server components
-
 
 Hasura
 - GraphQL engine
@@ -226,3 +229,20 @@ Hasura
 - Realtime subscriptions
 - TypeScript integration
 
+Keeping pace with modern web development is hard, which I'm sure you can now commiserate. The lines of frontend and backend have blurred, flipped and flopped, and took me with them. I have raw SQL living right next to my css in js. It has gotten weird. This rate of change, of innovation, this was all pre-AI/LLM! The web is a canary in this regard, the field in which I work so that I can comment on it, but it's not alone. This curve we're on, it will only get faster within our lifetimes.
+
+Web 3.0
+- WebAssembly
+  - Low-level bytecode
+  - C/C++/Rust in the browser
+- HTMX
+  - HTML over the wire; not JSON
+  - Server-side rendering
+  - Async
+- Decentralization
+  - Federated Web
+    - Autonomous but interoperable
+  - Blockchain
+  - IPFS
+
+Thank you for listening

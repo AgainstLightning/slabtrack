@@ -51,7 +51,6 @@ const addToDatabase = async (slabData: CGCData) => {
 export async function POST(request: NextRequest): Promise<NextResponse> {
   const reqBody = await request.json();
   const dbResult = await addToDatabase(reqBody);
-  console.log("dbResult", dbResult);
 
   if (dbResult.success) {
     return new NextResponse(JSON.stringify(dbResult.data), { status: 200 });

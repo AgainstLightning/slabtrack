@@ -50,7 +50,6 @@ export default function Home() {
     return <div>Error: {error.message}</div>;
   }
 
-
   return (
     <main className='px-8 py-4'>
       <div className='flex items-center justify-between pb-4'>
