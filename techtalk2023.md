@@ -103,6 +103,8 @@ Speaking of...
 
 ((Jared's personal history with the backend))
 
+cpanel lamp wamp proxies
+very distant until our next tech
 
   - NodeJS (2009)
     - Created by Ryan Dahl
@@ -125,7 +127,6 @@ Speaking of node_modules...
   - Frontend said "hold my red bull"
 	- AngularJS (2010) 
 		- made by Google
-		- introduces Single-Page Applications (SPAs)
     - {{SPA slide}}
       - The whole thing
       - All of it
@@ -165,7 +166,6 @@ Oh Mr. Berg you're back! So soon. Thank you, thank you we're making great progre
       - What data you want
       - No over/under-fetching
     - Strongly typed
-    - Client-specified queries
   - Single endpoint
 
 Bill Gates shows up, looking angry. Yeah okay I know I said FAANG know best, my bad. What do you want me to do? Bill Gates hands us a checkmark. Ahhhh alright.
@@ -197,8 +197,32 @@ Cannot speak on Next.js, without speaking on Vercel.
     - SEO friendly
     - Performant, leveraging the server
     - Full circle? 
-  - Static site generation (SSG)
+  - API routes (2018)
+    - Serverless functions
   - React 18 (2021)
     - Server components
 
+
+Now, that's a lot of history but we also managed to traverse 20 something years. If you remember, way back before Al Gore, I mentioned a small app I've built for the purposes of seeing all of this come together, to experience what modern-ish web development looks like. So, let's talk about that.
+
+
+This is a comic book. This is that same book in what we call a slab. This is a graded comic, as determined by a third party company, CGC. This comic has many properties, name, series, page quality, signatures, etc. but the primary service that CGC provides is the grading of the quality of a book. The grade of 9.8 is often sought as the highest a book gets. While a 9.9 and a 10 are possible, they are exceedingly rare.
+
+This is my comic book. This is my comic room and these are my graded comics. I wanted a database of my slabs so for todays app, I have built out SlabTrack using the technologies we have discussed today.
+
+((Demo of app and code))
+- show react components
+- show graphql queries
+- show routes
+- show api routes
+- show server components
+
+
+Hasura
+- GraphQL engine
+  - Postgres database
+  - Generate GraphQL API
+  - Resolvers are auto-generated
+- Realtime subscriptions
+- TypeScript integration
 
