@@ -11,7 +11,6 @@ const SearchField = ({ setCgcData }: { setCgcData: any }) => {
   handleStep(async () => {
     const { body } = await fetchCgcDataByCertificationNumber(certNumber);
     if (body) {
-      console.log('inner', body);
       setCgcData(body)
     }
   });

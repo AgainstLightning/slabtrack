@@ -31,8 +31,6 @@ Well, to get there, I'd like to use the tech stack of my current client as an ex
 
 The stack looks like this. There will not be a test. I don't have an interest in teaching you technologies that you won't use, nor would I be the best teacher for them if you do. However by building up to this list, I believe it will give us a sense of the complexity of the web, how it got there and where we may be going.
 
-And no, having mentioned TypeScript already will not count as a check mark yet, that was for a joke, but I appreciate your enthusiasm.
-
 At the end I've built a small app for today using the same technologies listed here but we will get back to that.
 
 History Time
