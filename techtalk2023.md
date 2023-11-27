@@ -101,7 +101,15 @@ Speaking of...
 
 ((Jared's personal history with the backend))
 
-cpanel lamp wamp proxies
+$25 and a weekend
+cpanel
+youtube uploads
+wamp stack
+- linux
+- apache
+- mysql
+- php
+react w/ local proxy to express
 very distant until our next tech
 
   - NodeJS (2009)
@@ -174,7 +182,7 @@ Bill Gates shows up, looking angry. Yeah okay I know I said FAANG know best, my 
   - Adds static typing to development
   - Made all the "real" devs happy
 
-Phew, that's a lot of progress; we're almost there. Let's take stock: It's 2015, Uptown Funk and The Force Awakens are doing gangbusters, (Left shark, the dress, fury road) and the web has fully come into its own. Web 1.0 is a bad memory and it's now a place where real people get real stuff done in real time, really. It is integral to our lives, the web isn't a tool or a platform, it's a human right. The internet is now a necessity for how modern first-world life operates and at the heart of it, is JavaScript. It's the most popular language in the world and the jokes of a new JavaScript library or framework every day are not far from the truth. The web is a place of constant change, and it's only getting faster. I personally cannot to see what's NEXT...JS
+Phew, that's a lot of progress; we're almost there. Let's take stock: It's 2015, Uptown Funk and The Force Awakens are doing gangbusters, (Left shark, the dress, fury road) and the web has fully come into its own. Web 1.0 is a bad memory and it's now a place where real people get real stuff done in real time, really. It is integral to our lives, the web isn't a tool or a platform, it's being discussed as a human right. The internet is now a necessity for how modern first-world life operates and at the heart of it, is JavaScript. It's the most popular language in the world and the jokes of a new JavaScript framework every day are not far from the truth. These modern web apps are very complex, so too their tooling but everything is a process of discovery, ebb and flow. The web is a place of constant change, and it's only getting faster. I personally cannot to see what's NEXT...JS
 
 Speaking of...
 
